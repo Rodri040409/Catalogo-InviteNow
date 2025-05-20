@@ -1,0 +1,178 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+/*************************************** Inspiración de https://codepen.io/bramus/pen/AzmevE ***************************************/
+/*************************************** Configuración básica para animaciones simples ***************************************/
+/*************************************** Se pone así en dónde se quiere la animación:  ***************************************/
+/*************************************** class="animatable fadeIn animationDelay" ***************************************/
+
+.Contenedor--overflow-hidden--bounceInRight {
+    overflow: hidden; /* Evita el desbordamiento */
+    width: 100vw; /* Ancho completo del viewport */
+}
+
+/* Configuración inicial de elementos animables */
+.animatable {
+    visibility: hidden; /* Oculta inicialmente el elemento */
+    animation-play-state: paused; /* Pausa la animación al inicio */
+    animation-fill-mode: both; /* Mantiene el estado final de la animación */
+    opacity: 0; /* Totalmente invisible al inicio */
+    transform: translateY(20px); /* Posición inicial para animaciones de entrada vertical */
+}
+
+/* Elementos animados */
+.animated {
+    visibility: visible; /* Hace visible el elemento */
+    animation-duration: 1s; /* Duración predeterminada de la animación */
+    animation-timing-function: ease-out; /* Transiciones suaves */
+    animation-fill-mode: both; /* Mantiene el estado final */
+    animation-play-state: running; /* Asegura que la animación se ejecute */
+    opacity: 1; /* Elemento completamente visible */
+    transform: translateY(0); /* Estado final (posición original) */
+}
+
+/*************************************** Animaciones hechas para cuando se va bajando con scroll ***************************************/
+
+/* Animación de desvanecimiento */
+@keyframes fadeIn {
+    0%, 60% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Entrada desde arriba con desvanecimiento */
+@keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Entrada desde abajo con desvanecimiento */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Entrada con rebote */
+@keyframes bounceIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.3);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    70% {
+        transform: scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Entrada desde la izquierda con rebote */
+@keyframes bounceInLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    60% {
+        transform: translateX(20px);
+    }
+    80% {
+        transform: translateX(-5px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Entrada desde la derecha con rebote */
+@keyframes bounceInRight {
+    0% {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    60% {
+        transform: translateX(-20px);
+    }
+    80% {
+        transform: translateX(5px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Movimiento ascendente */
+@keyframes moveUp {
+    0% {
+        transform: translateY(40px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+/* Cambio de color de fondo */
+@keyframes fadeBgColor {
+    0%, 70% {
+        background: none;
+    }
+    100% {
+        background: #464646;
+    }
+}
+
+/*************************************** Clases para animaciones de scroll ***************************************/
+.animated.animationDelay {
+    animation-delay: 0.7s; /* Retraso de inicio */
+}
+.animated.animationDelayMed {
+    animation-delay: 1.2s; /* Retraso medio */
+}
+.animated.animationDelayLong {
+    animation-delay: 1.6s; /* Retraso largo */
+}
+
+.animated.fadeBgColor {
+    animation-name: fadeBgColor; /* Asigna la animación de cambio de color de fondo */
+}
+.animated.bounceIn {
+    animation-name: bounceIn; /* Asigna la animación de rebote */
+}
+.animated.bounceInRight {
+    animation-name: bounceInRight; /* Rebote desde la derecha */
+}
+.animated.bounceInLeft {
+    animation-name: bounceInLeft; /* Rebote desde la izquierda */
+}
+.animated.fadeIn {
+    animation-name: fadeIn; /* Desvanecimiento */
+}
+.animated.fadeInDown {
+    animation-name: fadeInDown; /* Entrada desde arriba con desvanecimiento */
+}
+.animated.fadeInUp {
+    animation-name: fadeInUp; /* Entrada desde abajo con desvanecimiento */
+}
+.animated.moveUp {
+    animation-name: moveUp; /* Movimiento ascendente */
+}

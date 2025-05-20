@@ -1,0 +1,752 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+
+/*************************************** Ejemplos: https://codepen.io/jh3y/pen/vzqVWa ***************************************/
+
+/*************************************** Animación de letras más grandes de izquierda a derecha, se pone así ***************************************/
+/*************************************** class="text--scaling" data-scroll="out" data-duration="2s" data-delay="8s" ***************************************/
+/*************************************** Agregar "data-color="#A61439"" si es que son animaciones como karaoke y se ***************************************/
+/*************************************** Quiere usar otro color que no sea el blanco ***************************************/
+
+/*************************************** Animación "Random" ***************************************/
+.text--random {
+    overflow: hidden; // Previene desbordes
+    white-space: nowrap; // Mantiene todo en una línea
+
+    .char {
+        display: inline-block; // Cada carácter es un bloque independiente
+        transform: translate(0, 0); // Posición inicial
+        opacity: 0; // Invisible al inicio
+        transition: 
+            transform var(--char-duration, 0.8s) ease, 
+            opacity var(--char-duration, 0.8s) ease; // Duración dinámica
+        transition-delay: calc(var(--char-delay, 0s) + var(--char-index) * 0.1s); // Retraso dinámico
+    }
+
+    /* Cuando entra en viewport */
+    &[data-scroll="in"] .char {
+        opacity: 1; // Visible
+        transform: translate(0, 0); // Posición normal
+    }
+
+    /* Cuando sale del viewport */
+    &[data-scroll="out"] .char:nth-of-type(1) {
+        transform: translateX(-200%) translateY(200%);
+    }
+    &[data-scroll="out"] .char:nth-of-type(2) {
+        transform: translateX(-220%) translateY(-50%);
+    }
+    &[data-scroll="out"] .char:nth-of-type(3) {
+        transform: translateX(-100%) translateY(140%);
+    }
+    &[data-scroll="out"] .char:nth-of-type(4) {
+        transform: translateX(-240%) translateY(-30%);
+    }
+    &[data-scroll="out"] .char:nth-of-type(5) {
+        transform: translateX(-170%) translateY(-40%);
+    }
+    &[data-scroll="out"] .char:nth-of-type(6) {
+        transform: translateX(-160%) translateY(-110%);
+    }
+}
+/*************************************** Animación "Enter" ***************************************/
+.text--enter {
+    overflow: hidden; // Previene desbordes
+    white-space: nowrap; // Mantiene el texto en una línea
+
+    .char {
+        display: inline-block; // Cada carácter es un bloque independiente
+        transform: translate(0, -150%); // Posición inicial fuera de la vista
+        opacity: 0; // Invisible al inicio
+        transition: 
+        transform var(--char-duration, 0.5s) ease, 
+        opacity var(--char-duration, 0.5s) ease; // Duración dinámica
+        transition-delay: calc(var(--char-delay, 0s) + var(--char-index) * 0.1s); // Retraso dinámico
+    }
+
+    /* Cuando entra en el viewport */
+    &[data-scroll="in"] .char {
+        opacity: 1; // Visible
+        transform: translate(0, 0); // Regresa a su posición normal
+    }
+
+    /* Cuando sale del viewport */
+    &[data-scroll="out"] .char {
+        opacity: 0; // Invisible
+        transform: translate(0, -150%); // Vuelve a la posición inicial
+    }
+}
+
+
+/*************************************** Animación "Fading" ***************************************/
+.text--fading {
+    overflow: hidden; // Previene desbordes
+    white-space: nowrap; // Mantiene todo el texto en una sola línea
+
+    .char {
+        display: inline-block; // Cada carácter se comporta como un bloque independiente
+        opacity: 0; // Invisible al inicio
+        transition: opacity var(--char-duration, 0.5s) ease; // Controla la animación
+        transition-delay: calc(var(--char-delay, 0s) + var(--char-index) * 0.1s); // Retraso progresivo
+    }
+
+    /* Cuando entra en viewport */
+    &[data-scroll="in"] .char {
+        opacity: 1; // Se vuelve visible
+    }
+
+    /* Cuando sale del viewport */
+    &[data-scroll="out"] .char {
+        opacity: 0; // Se vuelve invisible
+    }
+}
+
+/*************************************** Animación "Flipping" ***************************************/
+.text--flipping {
+    overflow: hidden; // Previene desbordes
+    white-space: nowrap; // Mantiene todo el texto en una sola línea
+
+    .char {
+        display: inline-block; // Cada carácter se comporta como un bloque independiente
+        transform: rotateY(180deg); // Estado inicial
+        transition: transform var(--char-duration, 0.5s) ease; // Controla la animación
+        transition-delay: calc(var(--char-delay, 0s) + var(--char-index) * 0.1s); // Retraso progresivo
+    }
+
+    /* Cuando entra en viewport */
+    &[data-scroll="in"] .char {
+        transform: rotateY(0deg); // Regresa a su posición normal
+    }
+
+    /* Cuando sale del viewport */
+    &[data-scroll="out"] .char {
+        transform: rotateY(180deg); // Vuelve a su posición inicial
+    }
+}
+
+/*************************************** Animación "Slide" ***************************************/
+.text--slide {
+    overflow: hidden;
+    white-space: nowrap;
+
+    .char {
+        display: inline-block;
+        transform: translateX(-200%) skewX(15deg); // Más alejadas hacia la izquierda, inclinadas a la derecha
+        opacity: 0; // Invisible al inicio
+
+        transition: 
+            transform var(--char-duration, 1s) ease-in-out, 
+            opacity var(--char-duration, 1s) ease-in-out;
+
+        // Retraso acumulativo: definido en JavaScript
+        transition-delay: var(--char-delay, 0s);
+    }
+
+    /* Cuando entra en el viewport */
+    &[data-scroll="in"] .char {
+        transform: translateX(0) skewX(0deg); // Regresa a posición y endereza
+        opacity: 1; // Se vuelve completamente visible
+    }
+
+    /* Cuando sale del viewport */
+    &[data-scroll="out"] .char {
+        transform: translateX(-200%) skewX(15deg); // Vuelve a la posición inicial
+        opacity: 0; // Se vuelve invisible
+    }
+}
+
+/*************************************** Animación "Karaoke" ***************************************/
+.text--karaoke {
+    overflow: hidden;
+    white-space: nowrap;
+
+    .char {
+        display: inline-block;
+        color: rgba(255, 255, 255, 0.15);
+        position: relative;
+
+        &::after {
+            content: attr(data-char);
+            position: absolute;
+            top: 0;
+            left: 0;
+            color: v.$blanco;
+            visibility: visible;
+            clip-path: inset(0 100% 0 0);
+
+            transition: clip-path var(--char-step, 0.1s) ease, 
+                        color var(--char-step, 0.1s) ease;
+            transition-delay: var(--char-delay, 0s);
+        }
+    }
+
+    &[data-scroll="in"] .char::after {
+        clip-path: inset(0 0 0 0);
+    }
+
+    &[data-scroll="out"] .char::after {
+        clip-path: inset(0 100% 0 0);
+    }
+}
+
+/*************************************** Animación "Spinning" ***************************************/
+.text--spinning {
+    overflow: hidden;
+    white-space: nowrap;
+
+    .char {
+        display: inline-block;
+        transform: rotateY(0deg); // Posición inicial normal
+        transition: 
+            transform var(--char-duration, 1s) ease-in-out; // Animación suave
+        transition-delay: calc(var(--char-delay, 0s)); // Retraso acumulativo
+    }
+
+    /* Cuando entra en el viewport */
+    &[data-scroll="in"] .char {
+        transform: rotateY(360deg); // Gira una vuelta completa
+    }
+
+    /* Cuando sale del viewport */
+    &[data-scroll="out"] .char {
+        transform: rotateY(0deg); // Regresa a su posición inicial
+    }
+}
+
+/*************************************** Animación "Filling" ***************************************/
+.text--filling {
+    overflow: hidden;
+    white-space: nowrap;
+
+    .char {
+        position: relative; /* Asegura que el ::after esté posicionado relativo a la letra */
+        display: inline-block; /* Cada letra actúa como un bloque individual */
+        color: rgba(255, 255, 255, 0.15); /* Color inicial tenue */
+
+        &::after {
+            content: attr(data-char); /* Copia el carácter en un pseudo-elemento */
+            position: absolute;
+            top: 50%; /* Centra verticalmente el pseudo-elemento */
+            left: 0;
+            transform: translateY(-50%); /* Corrige el desplazamiento por top: 50% */
+            width: 100%;
+            height: 100%;
+            color: v.$blanco; /* Color de relleno */
+            clip-path: inset(100% 0 0 0); /* Oculto inicialmente */
+            visibility: visible;
+
+            /* Hereda propiedades de fuente para coincidencia exacta */
+            font-family: inherit;
+            font-size: inherit;
+            font-weight: inherit;
+            line-height: inherit;
+            text-align: inherit;
+
+            /* Transiciones para el efecto */
+            transition: 
+                clip-path var(--char-duration, 1s) ease-in-out, 
+                color var(--char-duration, 1s) ease-in-out;
+            transition-delay: calc(var(--char-delay, 0s)); /* Retraso acumulativo */
+        }
+    }
+
+    &[data-scroll="in"] .char::after {
+        clip-path: inset(0 0 0 0); /* Rellena completamente la letra */
+    }
+
+    &[data-scroll="out"] .char::after {
+        clip-path: inset(100% 0 0 0); /* Oculta el relleno */
+    }
+}
+
+/*************************************** Animación "Scaling" ***************************************/
+.text--scaling {
+    overflow: hidden; /* Asegura que no haya desbordamientos */
+    .char {
+        display: inline-block; /* Asegura que cada letra se anime por separado */
+        transform: scale(0); /* Comienza invisible */
+        opacity: 1; /* Siempre visible */
+        animation: scaling var(--char-step, 0.5s) cubic-bezier(0.25, 1.5, 0.5, 1) forwards;
+        animation-delay: var(--char-delay, 0s); /* Retraso dinámico */
+    }
+
+    /* Keyframes para el efecto de "pop" */
+    @keyframes scaling {
+        0% {
+            transform: scale(0); /* Empieza invisible */
+        }
+        70% {
+            transform: scale(1.5); /* Crece más allá del tamaño normal */
+        }
+        100% {
+            transform: scale(1); /* Se estabiliza */
+        }
+    }
+}
+
+/*************************************** Animación "Turning" ***************************************/
+.text--turning {
+    .char {
+        display: inline-block; /* Asegura que cada letra sea animable */
+        transform: rotateY(90deg); /* Comienza rotada (invisible) */
+        opacity: 0; /* Comienza oculta */
+        animation: turning var(--char-step, 0.5s) ease-out forwards; /* Animación dinámica */
+        animation-delay: var(--char-delay, 0s); /* Retraso dinámico */
+    }
+
+    /* Keyframes para el efecto "turning" */
+    @keyframes turning {
+        0% {
+            transform: rotateY(90deg); /* Comienza rotada (invisible) */
+            opacity: 0;
+        }
+        50% {
+            opacity: 1; /* Se hace visible mientras rota */
+        }
+        100% {
+            transform: rotateY(0); /* Termina en posición normal */
+            opacity: 1; /* Totalmente visible */
+        }
+    }
+}
+
+/*************************************** Animación "Folding" ***************************************/
+.text--folding {
+    overflow: hidden;
+    white-space: nowrap;
+
+    .char {
+        position: relative; /* Asegura que el ::after esté posicionado relativo a la letra */
+        display: inline-block; /* Cada letra actúa como un bloque individual */
+        color: rgba(255, 255, 255, 0); /* Color inicial tenue */
+
+        &::after {
+            content: attr(data-char); /* Copia el carácter en un pseudo-elemento */
+            position: absolute;
+            top: 50%; /* Centra verticalmente el pseudo-elemento */
+            left: 0;
+            transform: translateY(-50%); /* Corrige el desplazamiento por top: 50% */
+            width: 100%;
+            height: 100%;
+            color: v.$blanco; /* Color de relleno */
+            clip-path: inset(100% 0 0 0); /* Oculto inicialmente */
+            visibility: visible;
+
+            /* Hereda propiedades de fuente para coincidencia exacta */
+            font-family: inherit;
+            font-size: inherit;
+            font-weight: inherit;
+            line-height: inherit;
+            text-align: inherit;
+
+            /* Transiciones para el efecto */
+            transition: 
+                clip-path var(--char-duration, 1s) ease-in-out, 
+                color var(--char-duration, 1s) ease-in-out;
+            transition-delay: calc(var(--char-delay, 0s)); /* Retraso acumulativo */
+        }
+    }
+
+    &[data-scroll="in"] .char::after {
+        clip-path: inset(0 0 0 0); /* Rellena completamente la letra */
+    }
+
+    &[data-scroll="out"] .char::after {
+        clip-path: inset(100% 0 0 0); /* Oculta el relleno */
+    }
+}
+
+/*************************************** Animación "Scaling2" ***************************************/
+.text--scaling2 {
+    overflow: hidden;
+    white-space: nowrap;
+
+    .char {
+        display: inline-block;
+        transform: scale(0); /* Estado inicial */
+        opacity: 0;
+        transition: transform var(--char-duration, 0.5s) ease, 
+                    opacity var(--char-duration, 0.5s) ease;
+        transition-delay: calc(var(--char-delay, 0s) + var(--char-index) * 0.1s);
+    }
+
+    /* Estilo cuando el texto entra en el viewport */
+    &[data-scroll="in"] .char {
+        transform: scale(1); /* Aparece */
+        opacity: 1; /* Se vuelve visible */
+    }
+
+    /* Estilo cuando el texto sale del viewport */
+    &[data-scroll="out"] .char {
+        transform: scale(0); /* Desaparece */
+        opacity: 0; /* Invisible */
+    }
+}
+/*************************************** Animación "bulge" ***************************************/
+.text--bulge {
+    overflow: hidden;
+    white-space: nowrap;
+
+    .char {
+        display: inline-block;
+        transform: scale(0); /* Estado inicial */
+        opacity: 0; /* Comienza invisible */
+        transition: transform var(--char-duration, 0.5s) ease, 
+                    opacity var(--char-duration, 0.5s) ease;
+        transition-delay: var(--char-delay, 0s); /* Retraso dinámico */
+    }
+
+    /* Estado visible (al entrar en el viewport) */
+    &[data-scroll="in"] .char {
+        animation: bulge var(--char-step, 0.5s) cubic-bezier(0.25, 1.5, 0.5, 1) forwards;
+        animation-delay: var(--char-delay, 0s); /* Retraso dinámico */
+    }
+
+    /* Estado invisible (al salir del viewport) */
+    &[data-scroll="out"] .char {
+        transform: scale(0); /* Desaparece */
+        opacity: 0; /* Invisible */
+    }
+
+    /* Keyframes para el efecto Bulge */
+    @keyframes bulge {
+        0% {
+            transform: scale(0); /* Comienza aplastado */
+            opacity: 0; /* Invisible */
+        }
+        50% {
+            transform: scale(1.5); /* Escala máxima */
+            opacity: 1; /* Aparece completamente */
+        }
+        100% {
+            transform: scale(1); /* Regresa al tamaño normal */
+            opacity: 1; /* Totalmente visible */
+        }
+    }
+}
+
+/*************************************** Animación "Tumbling2" ***************************************/
+.text--tumbling2 {
+    overflow: hidden;
+    white-space: nowrap;
+
+    .char {
+        display: inline-block;
+        transform: translate(-200%, -200%) rotate(360deg) scale(0); /* Inicia muy lejos con escala 0 */
+        opacity: 0; /* Invisible inicialmente */
+        transition: 
+            transform var(--char-step, 0.6s) cubic-bezier(0.25, 1.5, 0.5, 1), 
+            opacity var(--char-step, 0.6s) ease;
+        transition-delay: var(--char-delay, 0s); /* Retraso dinámico */
+    }
+
+    /* Cuando el texto entra en el viewport */
+    &[data-scroll="in"] .char {
+        transform: translate(0, 0) rotate(0deg) scale(1); /* Llega a su posición normal */
+        opacity: 1; /* Totalmente visible */
+    }
+
+    /* Cuando el texto sale del viewport */
+    &[data-scroll="out"] .char {
+        transform: translate(-200%, -200%) rotate(-360deg) scale(0); /* Vuelve a salir */
+        opacity: 0; /* Invisible */
+    }
+}
+
+/*************************************** Animación "Tumbling" ***************************************/
+.text--tumbling {
+    overflow: hidden;
+    white-space: nowrap;
+
+    .char {
+        display: inline-block;
+        transform: translate(-700%, -200%) rotate(5400deg) scale(0); /* Muy lejos a la izquierda y con 2 giros */
+        opacity: 0; /* Invisible inicialmente */
+        transition: 
+            transform var(--char-step, 0.6s) cubic-bezier(0.3, 1.5, 0.5, 1), 
+            opacity var(--char-step, 0.6s) ease;
+        transition-delay: var(--char-delay, 0s); /* Retraso dinámico */
+    }
+
+    /* Cuando el texto entra en el viewport */
+    &[data-scroll="in"] .char {
+        transform: translate(0, 0) rotate(0deg) scale(1); /* Llega a su posición normal */
+        opacity: 1; /* Totalmente visible */
+    }
+
+    /* Cuando el texto sale del viewport */
+    &[data-scroll="out"] .char {
+        transform: translate(-300%, -50%) rotate(-720deg) scale(0); /* Vuelve a salir */
+        opacity: 0; /* Invisible */
+    }
+}
+
+/*************************************** Animación "Rolling" ***************************************/
+.text--rolling {
+    overflow: hidden;
+    white-space: nowrap;
+
+    .char {
+        display: inline-block;
+        transform: translate(-700%, 0%) rotate(5400deg) scale(0); /* Muy lejos a la izquierda */
+        opacity: 0; /* Invisible inicialmente */
+        transition: 
+            transform var(--char-step, 0.6s) cubic-bezier(1, 1.5, 0.5, 1), 
+            opacity var(--char-step, 0.6s) ease;
+        transition-delay: var(--char-delay, 0s); /* Retraso dinámico */
+    }
+
+    /* Cuando el texto entra en el viewport */
+    &[data-scroll="in"] .char {
+        transform: translate(0, 0) rotate(0deg) scale(1); /* Llega a su posición normal */
+        opacity: 1; /* Totalmente visible */
+    }
+
+    /* Cuando el texto sale del viewport */
+    &[data-scroll="out"] .char {
+        transform: translate(-300%, 0%) rotate(-720deg) scale(0); /* Vuelve a salir horizontalmente */
+        opacity: 0; /* Invisible */
+    }
+}
+
+/*************************************** Animación "Perspective" ***************************************/
+.text--perspective {
+    overflow: hidden;
+    white-space: nowrap;
+
+    .char {
+        display: inline-block;
+        transform: translate(-700%, -200%) scale(1); /* Muy lejos a la izquierda y con 2 giros */
+        opacity: 0; /* Invisible inicialmente */
+        transition: 
+            transform var(--char-step, 0.6s) cubic-bezier(0.3, 1.5, 0.5, 1), 
+            opacity var(--char-step, 0.6s) ease;
+        transition-delay: var(--char-delay, 0s); /* Retraso dinámico */
+    }
+
+    /* Cuando el texto entra en el viewport */
+    &[data-scroll="in"] .char {
+        transform: translate(0, 0) scale(1); /* Llega a su posición normal */
+        opacity: 1; /* Totalmente visible */
+    }
+
+    /* Cuando el texto sale del viewport */
+    &[data-scroll="out"] .char {
+        transform: translate(-300%, -50%) scale(0); /* Vuelve a salir */
+        opacity: 0; /* Invisible */
+    }
+}
+
+/*************************************** Animación "Zipping2" ***************************************/
+.text--zipping2 {
+    overflow: hidden;
+    white-space: nowrap;
+
+    .char {
+        display: inline-block;
+        transform: translateY(var(--char-initial, 0%)) scale(0); /* Posición inicial personalizada */
+        opacity: 0; /* Invisible inicialmente */
+        transition: 
+            transform var(--char-step, 0.6s) cubic-bezier(0.3, 1.5, 0.5, 1), 
+            opacity var(--char-step, 0.6s) ease;
+        transition-delay: var(--char-delay, 0s); /* Retraso dinámico */
+    }
+
+    /* Cuando el texto entra en el viewport */
+    &[data-scroll="in"] .char {
+        transform: translateY(0) scale(1); /* Llega a su posición normal */
+        opacity: 1; /* Totalmente visible */
+    }
+
+    /* Cuando el texto sale del viewport */
+    &[data-scroll="out"] .char {
+        transform: translateY(var(--char-initial, 0%)) scale(0); /* Vuelve a su posición inicial */
+        opacity: 0; /* Invisible */
+    }
+}
+
+/*************************************** Animación "Zipping" ***************************************/
+.text--zipping {
+    overflow: hidden; // Evita desbordamientos
+    white-space: nowrap;
+
+    .char {
+        display: inline-block;
+        opacity: 0; // Invisible al inicio
+
+        // Alterna entre -20px y 20px
+        @for $i from 1 through 100 {
+            &:nth-of-type(#{$i}) {
+                transform: translateY(if($i % 2 == 0, 20px, -20px));
+            }
+        }
+
+        transition: 
+        transform var(--char-duration, 0.5s) ease-in-out,
+        opacity var(--char-duration, 0.5s) ease-in-out;
+        transition-delay: calc(var(--char-delay, 0s) + var(--char-index) * 0.1s); // Retraso acumulativo
+    }
+
+    /* Al entrar en viewport */
+    &[data-scroll="in"] .char {
+        opacity: 1; // Se hace visible
+        transform: translateY(0); // Regresa a la posición normal
+    }
+
+    /* Al salir del viewport */
+    &[data-scroll="out"] .char {
+        opacity: 0; // Se oculta
+        @for $i from 1 through 100 {
+            &:nth-of-type(#{$i}) {
+                transform: translateY(if($i % 2 == 0, 8rem, -8rem));
+            }
+        }
+    }
+}  
+
+/*************************************** Animación "Swinging" ***************************************/
+.text--swinging {
+    overflow: hidden; // Evita desbordes
+    white-space: nowrap;
+
+    .char {
+        display: inline-block;
+        opacity: 0; // Invisible al inicio
+        transform-origin: 30rem 0rem; // Punto de rotación
+        transform: translateX(0rem) translateY(-50rem) rotate(45deg); // Posición inicial
+    
+        animation: swinging-curve var(--char-step, 1s) ease-in-out forwards;
+        animation-delay: var(--char-delay, 0s); // Retraso dinámico configurado en el JS
+    }
+
+    /* Animación cuando el texto está visible */
+    &[data-scroll="in"] .char {
+        animation-name: swinging-curve; // Activamos la animación de entrada
+    }
+
+    /* Animación cuando el texto sale del viewport */
+    &[data-scroll="out"] .char {
+        animation-name: swinging-curve-out; // Activamos la animación de salida
+    }
+}
+
+  /* Trayectoria curva para entrar */
+@keyframes swinging-curve {
+    0% {
+        opacity: 0;
+        transform: translateX(0rem) translateY(-50rem) rotate(45deg); // Punto inicial arriba a la izquierda
+    }
+    50% {
+        transform: translateX(-2rem) translateY(-5rem) rotate(10deg); // Mitad del círculo hacia abajo a la izquierda
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0) translateY(0) rotate(0); // Posición final
+    }
+}
+
+/* Trayectoria curva para salir */
+@keyframes swinging-curve-out {
+    0% {
+        opacity: 1;
+        transform: translateX(0) translateY(0) rotate(0); // Punto inicial (posición final de entrada)
+    }
+    50% {
+        transform: translateX(-2rem) translateY(-5rem) rotate(10deg); // Mitad del círculo hacia abajo a la izquierda
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(-10rem) translateY(-50rem) rotate(45deg); // Posición final arriba a la izquierda
+    }
+}
+/*************************************** Animación "Bubbling" ***************************************/
+.text--bubbling {
+    overflow: hidden; // Evita desbordes
+    white-space: nowrap;
+
+    .char {
+        display: inline-block;
+        opacity: 1; // Invisible al inicio
+        transform: scale(0.3); // Escala inicial pequeña
+        animation: none; // Animaciones dinámicas controladas por JS
+    }
+
+    /* Efecto de rebote */
+    @keyframes bubbling-rebound {
+        0% {
+            opacity: 1;
+            transform: scale(0.3); // Inicia pequeño
+        }
+        50% {
+            transform: scale(1.2); // Se agranda más allá de su tamaño
+        }
+        100% {
+            transform: scale(1); // Llega a su tamaño normal
+        }
+    }
+}
+
+/*************************************** Animación "Blowing" ***************************************/
+.text--blowing {
+    overflow: hidden;
+    white-space: nowrap;
+
+    .char {
+        display: inline-block;
+        transform-origin: left bottom; // Punto de referencia para la inclinación
+        transform: skewX(0deg); // Estado inicial
+        animation: blowing var(--char-duration, 1s) ease-in-out;
+        animation-delay: calc(var(--char-index) * var(--char-step, 0.05s) + var(--char-delay, 0s)); // Configuración dinámica
+    }
+}
+
+// Keyframes para el efecto "Blowing"
+@keyframes blowing {
+    0%, 100% {
+        transform: skewX(0deg); // Vuelve a su posición original
+    }
+    50% {
+        transform: skewX(-35deg); // Inclinación máxima
+    }
+    60% {
+        transform: skewX(-40deg); // Ajuste dinámico para realismo
+    }
+    75% {
+        transform: skewX(-35deg); // Regresa gradualmente
+    }
+}
+
+/*************************************** Animación "Meeting" ***************************************/
+.text--meeting {
+    white-space: nowrap; // Mantiene las letras en una línea
+    overflow: hidden; // Permite que las letras fuera del contenedor sean visibles
+
+    .char {
+        display: inline-block;
+        opacity: 1; // Siempre visibles
+        transform-origin: center; // El giro sucede desde el centro
+        transform: rotate(180deg) translateY(150%); // Posición inicial por defecto (arriba)
+
+        transition: 
+            transform var(--char-step, 0.5s) ease-in-out,
+            opacity var(--char-step, 0.5s) ease-in-out;
+        transition-delay: var(--char-delay, 0s); // Configurado dinámicamente
+    }
+
+    /* Alternar posición inicial: abajo para letras impares */
+    .char:nth-of-type(odd) {
+        transform: rotate(180deg) translateY(-150%); // Posición inicial abajo
+    }
+
+    /* Al entrar en el viewport */
+    &[data-scroll="in"] .char {
+        transform: rotate(0deg) translateY(0); // Enderezar y mover a su posición
+    }
+
+    /* Al salir del viewport */
+    &[data-scroll="out"] .char:nth-of-type(even),
+    &[data-scroll="out"] .char:nth-of-type(odd) {
+        transform: rotate(180deg) translateY(calc(150%)); // Regresa a la posición inicial
+    }
+}
