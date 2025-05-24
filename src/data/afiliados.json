@@ -1,0 +1,29 @@
+{
+  "default": {
+    "telefono": "+52 2285062080",
+    "precios": {
+      "basica": "$350",
+      "estandar": "$450",
+      "premium": "$650",
+      "express": "$300"
+    }
+  },
+  "alexfotografia": {
+    "telefono": "+52 2281234567",
+    "precios": {
+      "basica": "$390",
+      "estandar": "$500",
+      "premium": "$700",
+      "express": "$350"
+    }
+  },
+  "estudiocarmen": {
+    "telefono": "+52 2287654321",
+    "precios": {
+      "basica": "$370",
+      "estandar": "$480",
+      "premium": "$680",
+      "express": "$330"
+    }
+  }
+}
