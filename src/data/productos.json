@@ -3,49 +3,49 @@
     {
       "id": "bodapreview",
       "title": "INVITACIÓN PARA BODA",
-      "categoria": "basica",
-      "url": "https://previewboda.netlify.app/",
+      "categoria": ["basica", "estandar"],
+      "url": "https://previewboda.netlify.app",
       "adaptado": ["Celular", "Tablet", "PC"],
       "imgMain": {
-        "ruta": "build/img/bodapreview/1",
-        "extension": "jpg"
+        "ruta": "imagenes/Bodas/bodapreview/bodapreview",
+        "extension": "png"
       },
       "galeria": [
-        "build/img/bodapreview/1",
-        "build/img/bodapreview/2",
-        "build/img/bodapreview/3",
-        "build/img/bodapreview/4",
-        "build/img/bodapreview/5",
-        "build/img/bodapreview/6",
-        "build/img/bodapreview/7",
-        "build/img/bodapreview/8",
-        "build/img/bodapreview/9",
-        "build/img/bodapreview/10",
-        "build/img/bodapreview/11",
-        "build/img/bodapreview/12",
-        "build/img/bodapreview/13"
+        "imagenes/Bodas/bodapreview/1.png",
+        "imagenes/Bodas/bodapreview/2.png",
+        "imagenes/Bodas/bodapreview/3.png",
+        "imagenes/Bodas/bodapreview/4.png",
+        "imagenes/Bodas/bodapreview/5.png",
+        "imagenes/Bodas/bodapreview/6.png",
+        "imagenes/Bodas/bodapreview/7.png",
+        "imagenes/Bodas/bodapreview/8.png",
+        "imagenes/Bodas/bodapreview/9.png",
+        "imagenes/Bodas/bodapreview/10.png",
+        "imagenes/Bodas/bodapreview/11.png",
+        "imagenes/Bodas/bodapreview/12.png",
+        "imagenes/Bodas/bodapreview/13.png"
       ]
     },
     {
       "id": "xvpreview",
       "title": "INVITACIÓN XV AÑOS",
-      "categoria": "basica",
-      "url": "https://xvpreview.netlify.app/",
+      "categoria": ["basica", "estandar"],
+      "url": "https://xvpreview.netlify.app",
       "adaptado": ["Celular", "Tablet", "PC"],
       "imgMain": {
-        "ruta": "build/img/xvpreview/1",
-        "extension": "jpg"
+        "ruta": "imagenes/XV/xvpreview/XVRegina",
+        "extension": "png"
       },
       "galeria": [
-        "build/img/xvpreview/1",
-        "build/img/xvpreview/2",
-        "build/img/xvpreview/3",
-        "build/img/xvpreview/4",
-        "build/img/xvpreview/5",
-        "build/img/xvpreview/6",
-        "build/img/xvpreview/7",
-        "build/img/xvpreview/8",
-        "build/img/xvpreview/9"
+        "imagenes/XV/xvpreview/1.png",
+        "imagenes/XV/xvpreview/2.png",
+        "imagenes/XV/xvpreview/3.png",
+        "imagenes/XV/xvpreview/4.png",
+        "imagenes/XV/xvpreview/5.png",
+        "imagenes/XV/xvpreview/6.png",
+        "imagenes/XV/xvpreview/7.png",
+        "imagenes/XV/xvpreview/8.png",
+        "imagenes/XV/xvpreview/9.png"
       ]
     },
     {
@@ -55,11 +55,11 @@
       "url": "https://boda-demo2.netlify.app",
       "adaptado": ["Tablet", "PC"],
       "imgMain": {
-        "ruta": "build/img/boda_demo2/1",
-        "extension": "jpg"
+        "ruta": "imagenes/Bodas/boda_demo2/boda-demo2",
+        "extension": "png"
       },
       "galeria": [
-        "build/img/boda_demo2/1"
+        "imagenes/Bodas/boda_demo2/1.png"
       ]
     },
     {
@@ -69,14 +69,14 @@
       "url": "https://boda-demo3.netlify.app",
       "adaptado": ["Celular", "Tablet", "PC"],
       "imgMain": {
-        "ruta": "build/img/boda_demo3/1",
-        "extension": "jpg"
+        "ruta": "imagenes/Bodas/boda_demo3/boda-demo3",
+        "extension": "png"
       },
       "galeria": [
-        "build/img/boda_demo3/1",
-        "build/img/boda_demo3/2",
-        "build/img/boda_demo3/3",
-        "build/img/boda_demo3/4"
+        "imagenes/Bodas/boda_demo3/1.png",
+        "imagenes/Bodas/boda_demo3/2.png",
+        "imagenes/Bodas/boda_demo3/3.png",
+        "imagenes/Bodas/boda_demo3/4.png"
       ]
     },
     {
@@ -86,143 +86,143 @@
       "url": "https://boda-demo4.netlify.app",
       "adaptado": ["Tablet", "PC"],
       "imgMain": {
-        "ruta": "build/img/boda_demo4/1",
-        "extension": "jpg"
+        "ruta": "imagenes/Bodas/boda_demo4/boda-demo4",
+        "extension": "png"
       },
       "galeria": [
-        "build/img/boda_demo4/1"
-      ]
-    },
-    {
-      "id": "boda_demo5",
-      "title": "INVITACIÓN PARA BODA",
-      "categoria": "basica",
-      "url": "https://boda5.netlify.app/",
-      "adaptado": ["Celular", "Tablet", "PC"],
-      "imgMain": {
-        "ruta": "build/img/boda_demo5/1",
-        "extension": "jpg"
-      },
-      "galeria": [
-        "build/img/boda_demo5/1",
-        "build/img/boda_demo5/2",
-        "build/img/boda_demo5/3",
-        "build/img/boda_demo5/4",
-        "build/img/boda_demo5/5"
-      ]
-    },
-    {
-      "id": "boda_demo6",
-      "title": "INVITACIÓN PARA BODA",
-      "categoria": "basica",
-      "url": "https://boda6.netlify.app/",
-      "adaptado": ["Celular", "Tablet", "PC"],
-      "imgMain": {
-        "ruta": "build/img/boda_demo6/1",
-        "extension": "jpg"
-      },
-      "galeria": [
-        "build/img/boda_demo6/1",
-        "build/img/boda_demo6/2",
-        "build/img/boda_demo6/3",
-        "build/img/boda_demo6/4",
-        "build/img/boda_demo6/5",
-        "build/img/boda_demo6/6"
-      ]
-    },
-    {
-      "id": "boda_demo7",
-      "title": "INVITACIÓN PARA EVENTO",
-      "categoria": "basica",
-      "url": "https://boda7.netlify.app/",
-      "adaptado": ["Celular", "Tablet", "PC"],
-      "imgMain": {
-        "ruta": "build/img/boda_demo7/1",
-        "extension": "jpg"
-      },
-      "galeria": [
-        "build/img/boda_demo7/1",
-        "build/img/boda_demo7/2",
-        "build/img/boda_demo7/3"
-      ]
-    },
-    {
-      "id": "boda_demo8",
-      "title": "INVITACIÓN PARA BODA",
-      "categoria": "basica",
-      "url": "https://boda8.netlify.app/",
-      "adaptado": ["Celular", "Tablet", "PC"],
-      "imgMain": {
-        "ruta": "build/img/boda_demo8/1",
-        "extension": "jpg"
-      },
-      "galeria": [
-        "build/img/boda_demo8/1",
-        "build/img/boda_demo8/2",
-        "build/img/boda_demo8/3",
-        "build/img/boda_demo8/4",
-        "build/img/boda_demo8/5",
-        "build/img/boda_demo8/6",
-        "build/img/boda_demo8/7",
-        "build/img/boda_demo8/8",
-        "build/img/boda_demo8/9"
-      ]
-    },
-    {
-      "id": "boda_demo9",
-      "title": "INVITACIÓN PARA BODA",
-      "categoria": "basica",
-      "url": "https://boda9.netlify.app/",
-      "adaptado": ["Celular", "Tablet", "PC"],
-      "imgMain": {
-        "ruta": "build/img/boda_demo9/1",
-        "extension": "jpg"
-      },
-      "galeria": [
-        "build/img/boda_demo9/1",
-        "build/img/boda_demo9/2",
-        "build/img/boda_demo9/3",
-        "build/img/boda_demo9/4"
-      ]
-    },
-    {
-      "id": "planetinvitation",
-      "title": "INVITACIÓN PREMIUM",
-      "categoria": "premium",
-      "url": "https://planetinvitationvip.netlify.app/",
-      "adaptado": ["PC"],
-      "imgMain": {
-        "ruta": "build/img/planetinvitation/1",
-        "extension": "jpg"
-      },
-      "galeria": [
-        "build/img/planetinvitation/1",
-        "build/img/planetinvitation/2",
-        "build/img/planetinvitation/3",
-        "build/img/planetinvitation/4",
-        "build/img/planetinvitation/5",
-        "build/img/planetinvitation/6",
-        "build/img/planetinvitation/7",
-        "build/img/planetinvitation/8",
-        "build/img/planetinvitation/9",
-        "build/img/planetinvitation/10"
+        "imagenes/Bodas/boda_demo4/1.png"
       ]
     },
     {
       "id": "darkhole",
       "title": "INVITACIÓN PARA EVENTO",
       "categoria": "express",
-      "url": "https://darkholeinvitation.netlify.app/",
+      "url": "https://darkholeinvitation.netlify.app",
       "adaptado": ["Celular", "Tablet", "PC"],
       "imgMain": {
-        "ruta": "build/img/darkhole/1",
-        "extension": "jpg"
+        "ruta": "imagenes/Cumpleaños/DarkHole/DarkHole",
+        "extension": "png"
       },
       "galeria": [
-        "build/img/darkhole/1",
-        "build/img/darkhole/2",
-        "build/img/darkhole/3",
-        "build/img/darkhole/4"
+        "imagenes/Cumpleaños/darkhole/1.png",
+        "imagenes/Cumpleaños/darkhole/2.png",
+        "imagenes/Cumpleaños/darkhole/3.png",
+        "imagenes/Cumpleaños/darkhole/4.png"
+      ]
+    },
+    {
+      "id": "boda_demo5",
+      "title": "INVITACIÓN PARA BODA",
+      "categoria": "basica",
+      "url": "https://boda5.netlify.app",
+      "adaptado": ["Celular", "Tablet", "PC"],
+      "imgMain": {
+        "ruta": "imagenes/Bodas/boda_demo5/boda-demo5",
+        "extension": "png"
+      },
+      "galeria": [
+        "imagenes/Bodas/boda_demo5/1.png",
+        "imagenes/Bodas/boda_demo5/2.png",
+        "imagenes/Bodas/boda_demo5/3.png",
+        "imagenes/Bodas/boda_demo5/4.png",
+        "imagenes/Bodas/boda_demo5/5.png"
+      ]
+    },
+    {
+      "id": "boda_demo6",
+      "title": "INVITACIÓN PARA BODA",
+      "categoria": ["basica", "estandar"],
+      "url": "https://boda6.netlify.app",
+      "adaptado": ["Celular", "Tablet", "PC"],
+      "imgMain": {
+        "ruta": "imagenes/Bodas/boda_demo6/boda-demo6",
+        "extension": "png"
+      },
+      "galeria": [
+        "imagenes/Bodas/boda_demo6/1.png",
+        "imagenes/Bodas/boda_demo6/2.png",
+        "imagenes/Bodas/boda_demo6/3.png",
+        "imagenes/Bodas/boda_demo6/4.png",
+        "imagenes/Bodas/boda_demo6/5.png",
+        "imagenes/Bodas/boda_demo6/6.png"
+      ]
+    },
+    {
+      "id": "boda_demo7",
+      "title": "INVITACIÓN PARA EVENTO",
+      "categoria": "basica",
+      "url": "https://boda7.netlify.app",
+      "adaptado": ["Celular", "Tablet", "PC"],
+      "imgMain": {
+        "ruta": "imagenes/Bodas/boda_demo7/boda-demo7",
+        "extension": "png"
+      },
+      "galeria": [
+        "imagenes/Bodas/boda_demo7/1.png",
+        "imagenes/Bodas/boda_demo7/2.png",
+        "imagenes/Bodas/boda_demo7/3.png"
+      ]
+    },
+    {
+      "id": "boda_demo8",
+      "title": "INVITACIÓN PARA BODA",
+      "categoria": ["basica", "estandar"],
+      "url": "https://boda8.netlify.app",
+      "adaptado": ["Celular", "Tablet", "PC"],
+      "imgMain": {
+        "ruta": "imagenes/Bodas/boda_demo8/boda-demo8",
+        "extension": "png"
+      },
+      "galeria": [
+        "imagenes/Bodas/boda_demo8/1.png",
+        "imagenes/Bodas/boda_demo8/2.png",
+        "imagenes/Bodas/boda_demo8/3.png",
+        "imagenes/Bodas/boda_demo8/4.png",
+        "imagenes/Bodas/boda_demo8/5.png",
+        "imagenes/Bodas/boda_demo8/6.png",
+        "imagenes/Bodas/boda_demo8/7.png",
+        "imagenes/Bodas/boda_demo8/8.png",
+        "imagenes/Bodas/boda_demo8/9.png"
+      ]
+    },
+    {
+      "id": "boda_demo9",
+      "title": "INVITACIÓN PARA BODA",
+      "categoria": "basica",
+      "url": "https://boda9.netlify.app",
+      "adaptado": ["Celular", "Tablet", "PC"],
+      "imgMain": {
+        "ruta": "imagenes/Bodas/boda_demo9/boda-demo9",
+        "extension": "png"
+      },
+      "galeria": [
+        "imagenes/Bodas/boda_demo9/1.png",
+        "imagenes/Bodas/boda_demo9/2.png",
+        "imagenes/Bodas/boda_demo9/3.png",
+        "imagenes/Bodas/boda_demo9/4.png"
+      ]
+    },
+    {
+      "id": "planetinvitation",
+      "title": "INVITACIÓN PREMIUM",
+      "categoria": "premium",
+      "url": "https://planetinvitationvip.netlify.app",
+      "adaptado": ["PC"],
+      "imgMain": {
+        "ruta": "imagenes/Bodas/planetinvitation/planetinvitation",
+        "extension": "png"
+      },
+      "galeria": [
+        "imagenes/Bodas/planetinvitation/1.png",
+        "imagenes/Bodas/planetinvitation/2.png",
+        "imagenes/Bodas/planetinvitation/3.png",
+        "imagenes/Bodas/planetinvitation/4.png",
+        "imagenes/Bodas/planetinvitation/5.png",
+        "imagenes/Bodas/planetinvitation/6.png",
+        "imagenes/Bodas/planetinvitation/7.png",
+        "imagenes/Bodas/planetinvitation/8.png",
+        "imagenes/Bodas/planetinvitation/9.png",
+        "imagenes/Bodas/planetinvitation/10.png"
       ]
     }
   ]

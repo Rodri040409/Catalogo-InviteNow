@@ -1,7 +1,15 @@
-export default function Footer() {
+import Planes from '@/components/Secciones/Planes';
+
+export default function Home() {
   return (
-    <footer className="bg-gray-100 text-center p-4 text-sm">
-      © {new Date().getFullYear()} Mi Sitio. Todos los derechos reservados.
-    </footer>
+    <>
+      {/* <Planes categoria="basica" /> Solo muestra planes básicos */}
+      {/* <Planes categoria="premium" /> */}
+      <Planes
+        // categoria="basica"
+        titulo="Descubre nuestros Planes Premium"
+        mostrarForma={false}
+      />
+    </>
   );
 }
