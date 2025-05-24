@@ -5,7 +5,10 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
-import data from "@/data/productos.json";
+
+import productos from "@/data/productos.json";
+import planes from "@/data/planes.json";
+import afiliadosData from "@/data/afiliados.json";
 
 const categorias: Record<string, string> = {
   basica: "Categoría básica/estándar",
@@ -14,16 +17,45 @@ const categorias: Record<string, string> = {
   premium: "Categoría premium",
 };
 
-type CategoriaTipo = "basica" | "estandar" | "express" | "premium";
+type CategoriaTipo = keyof typeof categorias;
+
+interface Producto {
+  id: string;
+  title: string;
+  categoria: CategoriaTipo | CategoriaTipo[];
+  url?: string;
+  adaptado?: string[];
+  incluye?: string[];
+  tipo?: CategoriaTipo;
+  galeria?: string[];
+  imgMain: {
+    ruta: string;
+    extension: string;
+  };
+  dificultad?: number;
+}
+
+
+interface Afiliado {
+  telefono: string;
+  precios: Record<CategoriaTipo, string>;
+}
 
 interface PlanesProps {
   categoria?: CategoriaTipo;
   titulo?: string;
   mostrarForma?: boolean;
+  afiliado?: keyof typeof afiliadosData;
 }
 
-export default function Planes({ categoria, titulo = "Nuestro Catálogo", mostrarForma = true }: PlanesProps) {
+export default function Planes({
+  categoria,
+  titulo = "Nuestro Catálogo",
+  mostrarForma = true,
+  afiliado = "default",
+}: PlanesProps) {
   const [galeriaActiva, setGaleriaActiva] = useState<string | null>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
   const [isFirstSlide, setIsFirstSlide] = useState(true);
   const [isLastSlide, setIsLastSlide] = useState(false);
 
@@ -34,13 +66,37 @@ export default function Planes({ categoria, titulo = "Nuestro Catálogo", mostra
     };
   }, [galeriaActiva]);
 
-  const dataFiltrada = categoria
-    ? data.invitaciones.filter((item) =>
-        Array.isArray(item.categoria)
-          ? item.categoria.includes(categoria)
-          : item.categoria === categoria
-      )
-    : data.invitaciones;
+  const afiliadoData: Afiliado = afiliadosData[afiliado] || afiliadosData.default;
+
+  // Si se pasó una categoría, asumimos que se quieren ver productos
+  const productosTyped = productos as { invitaciones?: Producto[] };
+  const planesTyped = planes as { planes?: Producto[] };
+
+  const mostrarProductos = categoria !== undefined;
+  const mostrarPlanes = categoria === undefined;
+
+
+  const items: Producto[] = 
+    mostrarProductos ? productosTyped.invitaciones || [] : 
+    mostrarPlanes ? planesTyped.planes || [] : [];
+
+
+  const seen = new Set();
+  const uniqueItems = items.filter((item) => {
+    if (seen.has(item.id)) return false;
+    seen.add(item.id);
+    return true;
+  });
+
+  const dataFiltrada: Producto[] = 
+  !categoria || categoria === "all" 
+    ? uniqueItems // Si la categoría es "all", se devuelven todos los productos
+    : uniqueItems.filter((item) => {
+        const cat = item.categoria;
+        return Array.isArray(cat)
+          ? cat.includes(categoria) // Si la categoría es un array, verifica si incluye la categoría
+          : cat === categoria; // Si es una categoría única, compara directamente
+      });
 
   return (
     <section className="planes max-w-[100%] overflow-hidden">
@@ -71,13 +127,12 @@ export default function Planes({ categoria, titulo = "Nuestro Catálogo", mostra
             {dataFiltrada.map((item, index) => (
               <div
                 key={item.id}
-                className={`product-img__item ${index === 0 ? "active" : ""}`}
-                id={`slide-${index + 1}`}
+                className={`product-img__item ${index === activeIndex ? "active" : ""}`}
               >
                 <img
                   src={`/${item.imgMain.ruta}.${item.imgMain.extension}`}
                   alt={item.title}
-                  className="product-img__img"
+                  className={`product-img__img ${mostrarPlanes ? "scale-[1] md:scale-[1.3] xl:scale-[0.8]" : ""}`}
                 />
               </div>
             ))}
@@ -96,14 +151,11 @@ export default function Planes({ categoria, titulo = "Nuestro Catálogo", mostra
               }}
               onSlideChange={(swiper) => {
                 const index = swiper.activeIndex;
+                setActiveIndex(index);
                 setIsFirstSlide(index === 0);
                 setIsLastSlide(index === swiper.slides.length - 1);
-                const target = `slide-${index + 1}`;
-                document.querySelectorAll(".product-img__item").forEach((el) =>
-                  el.classList.remove("active")
-                );
-                document.getElementById(target)?.classList.add("active");
               }}
+
               className="product-slider__wrp swiper-wrapper"
             >
               {dataFiltrada.map((item, index) => (
@@ -116,44 +168,106 @@ export default function Planes({ categoria, titulo = "Nuestro Catálogo", mostra
                     <div className="product-slider__content">
                       <h1 className="product-slider__title">{item.title}</h1>
 
-                      {/* Categoría (única) */}
-                      <span className="product-slider__price leading-tight">
-                        {
-                          Array.isArray(item.categoria)
-                            ? Array.from(new Set(item.categoria.map((c) => categorias[c]))).join(", ")
-                            : categorias[item.categoria]
-                        }
-                      </span>
+                      <span className="product-slider__price leading-tight mb-[-2rem]">
+                      {(() => {
+                        const cats = Array.isArray(item.categoria)
+                          ? item.categoria
+                          : [item.categoria];
+                        const uniqueCats = Array.from(new Set(cats));
+                        return Array.from(
+                          new Set(uniqueCats.map((c) => categorias[c as CategoriaTipo]))
+                        ).join(", "); // Esto ya se asegura de no agregar una coma al final.
+                      })()}
+                    </span>
+
+
+                      {!categoria && item.tipo && (
+                        <span className="product-slider__price leading-tight mt-2 block">
+                          {afiliadoData.precios[item.tipo as CategoriaTipo] ?? "$--"}
+                        </span>
+                      )}
 
 
                       <div className="product-ctr">
                         <div className="product-labels">
                           <div className="product-labels__title__Gallery1">
-                            Adaptada para:
+                            {item.adaptado ? "Adaptada para:" : "INCLUYE:"}
                           </div>
-                          {item.adaptado.map((a) => (
-                            <div className="product-labels__product" key={a}>
-                              - {a}
+                          {(item.adaptado ?? item.incluye)?.map((linea, i) => (
+                            <div className="product-labels__product" key={i}>
+                              - {linea}
                             </div>
                           ))}
                         </div>
+
                         <span className="hr-vertical"></span>
+
+                        {mostrarPlanes && item.dificultad !== undefined && (
+                          <div className="product-inf">
+                            <div className="product-inf__percent flex flex-col items-center justify-center">
+                              <div className="relative w-[100px] h-[100px]">
+                                <svg className="w-full h-full" viewBox="0 0 100 100">
+                                  <circle
+                                    cx="50"
+                                    cy="50"
+                                    r="47"
+                                    stroke="#1e2e3e"
+                                    strokeWidth="6"
+                                    fill="none"
+                                  />
+                                  <circle
+                                    cx="50"
+                                    cy="50"
+                                    r="47"
+                                    stroke="#cb2240"
+                                    strokeWidth="6"
+                                    fill="none"
+                                    strokeDasharray={`${(item.dificultad / 100) * 295}, 295`}
+                                    transform="rotate(-90 50 50)"
+                                    strokeLinecap="round"
+                                  />
+                                </svg>
+                                <div className="absolute inset-0 flex items-center justify-center text-white text-[1.75rem] md:text-[2rem] font-extrabold leading-none">
+                                  {item.dificultad}%
+                                </div>
+                              </div>
+                            </div>
+                            <span className="product-inf__title">NIVEL DE DIFICULTAD</span>
+                          </div>
+                        )}
                       </div>
 
-                      <div className="product-slider__bottom product-slider__bottom--gallery1">
-                        <button
-                          onClick={() => window.open(item.url, "_blank", "noopener,noreferrer")}
-                          className="product-slider__cart"
-                        >
-                          Ir a la página
-                        </button>
-                        <button
-                          className="product-slider__cart"
-                          onClick={() => setGaleriaActiva(item.id)}
-                        >
-                          VER Fotos
-                        </button>
+                      <div
+                        className={`product-slider__bottom ${
+                          item.galeria && item.galeria.length > 0
+                            ? "product-slider__bottom--gallery1 grid"
+                            : "flex justify-center"
+                        }`}
+                      >
+
+                        {item.url ? (
+                          <button
+                            onClick={() =>
+                              window.open(item.url, "_blank", "noopener,noreferrer")
+                            }
+                            className="product-slider__cart"
+                          >
+                            Ir a la página
+                          </button>
+                        ) : (
+                          <button className="product-slider__cart">Ver opciones</button>
+                        )}
+
+                        {item.galeria && item.galeria.length > 0 && (
+                          <button
+                            className="product-slider__cart"
+                            onClick={() => setGaleriaActiva(item.id)}
+                          >
+                            VER Fotos
+                          </button>
+                        )}
                       </div>
+
                     </div>
                   </div>
                 </SwiperSlide>
@@ -186,7 +300,7 @@ export default function Planes({ categoria, titulo = "Nuestro Catálogo", mostra
               </svg>
             </button>
 
-            {/* SVGs */}
+            {/* SVG defs */}
             <svg className="hidden">
               <symbol id="icon-arrow-left" viewBox="0 0 32 32">
                 <path d="M0.704 17.696l9.856 9.856c0.896 0.896 2.432 0.896 3.328 0s0.896-2.432 0-3.328l-5.792-5.856h21.568c1.312 0 2.368-1.056 2.368-2.368s-1.056-2.368-2.368-2.368h-21.568l5.824-5.824c0.896-0.896 0.896-2.432 0-3.328-0.48-0.48-1.088-0.704-1.696-0.704s-1.216 0.224-1.696 0.704l-9.824 9.824c-0.448 0.448-0.704 1.056-0.704 1.696s0.224 1.248 0.704 1.696z" />
@@ -222,7 +336,7 @@ export default function Planes({ categoria, titulo = "Nuestro Catálogo", mostra
               loop={false}
               className="w-full"
             >
-              {(data.invitaciones.find((i) => i.id === galeriaActiva)?.galeria || []).map(
+              {(dataFiltrada.find((i) => i.id === galeriaActiva)?.galeria ?? []).map(
                 (img, idx) => (
                   <SwiperSlide key={idx}>
                     <img

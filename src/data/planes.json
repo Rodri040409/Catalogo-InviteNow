@@ -1,0 +1,82 @@
+{
+  "planes": [
+    {
+      "id": "express",
+      "title": "INVITACIÓN EXPRESS",
+      "tipo": "express",
+      "dificultad": 40,
+      "imgMain": {
+        "ruta": "imagenes/0planes/fiesta1",
+        "extension": "png"
+      },
+      "incluye": [
+        "Texto personalizado.",
+        "Botón de ubicación para Google Maps.",
+        "Diseño optimizado para celulares y computadoras."
+      ]
+    },
+    {
+      "id": "basica",
+      "title": "INVITACIÓN BÁSICA",
+      "tipo": "basica",
+      "dificultad": 60,
+      "imgMain": {
+        "ruta": "imagenes/0planes/fiesta2",
+        "extension": "png"
+      },
+      "incluye": [
+        "Texto editable.",
+        "1 Imagen de fondo.",
+        "Diseño responsivo."
+      ]
+    },
+    {
+      "id": "estandar",
+      "title": "INVITACIÓN ESTÁNDAR",
+      "tipo": "estandar",
+      "dificultad": 80,
+      "imgMain": {
+        "ruta": "imagenes/0planes/fiesta3",
+        "extension": "png"
+      },
+      "incluye": [
+        "Texto personalizado.",
+        "Mapa de ubicación.",
+        "Agenda del evento.",
+        "Sección de regalos opcional."
+      ]
+    },
+    {
+      "id": "premium",
+      "title": "INVITACIÓN PREMIUM",
+      "tipo": "premium",
+      "dificultad": 100,
+      "imgMain": {
+        "ruta": "imagenes/0planes/fiesta4",
+        "extension": "png"
+      },
+      "incluye": [
+        "Texto e imágenes personalizadas.",
+        "Sección de confirmación RSVP.",
+        "Música de fondo.",
+        "Diseño animado con interacción."
+      ]
+    },
+    {
+      "id": "personalizada",
+      "title": "INVITACIÓN PERSONALIZADA",
+      "tipo": "premium",
+      "dificultad": 100,
+      "imgMain": {
+        "ruta": "imagenes/0planes/fiesta5",
+        "extension": "png"
+      },
+      "incluye": [
+        "Diseño a medida según tus necesidades.",
+        "Elementos visuales únicos.",
+        "Soporte en tiempo real.",
+        "Entrega en formatos múltiples."
+      ]
+    }
+  ]
+}

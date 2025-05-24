@@ -3,7 +3,7 @@
     {
       "id": "bodapreview",
       "title": "INVITACIÓN PARA BODA",
-      "categoria": ["basica", "estandar"],
+      "categoria": ["all", "basica", "estandar"],
       "url": "https://previewboda.netlify.app",
       "adaptado": ["Celular", "Tablet", "PC"],
       "imgMain": {
@@ -29,7 +29,7 @@
     {
       "id": "xvpreview",
       "title": "INVITACIÓN XV AÑOS",
-      "categoria": ["basica", "estandar"],
+      "categoria": ["all", "basica", "estandar"],
       "url": "https://xvpreview.netlify.app",
       "adaptado": ["Celular", "Tablet", "PC"],
       "imgMain": {
@@ -51,7 +51,7 @@
     {
       "id": "boda_demo2",
       "title": "INVITACIÓN FAMILIAR",
-      "categoria": "express",
+      "categoria": ["all", "express"],
       "url": "https://boda-demo2.netlify.app",
       "adaptado": ["Tablet", "PC"],
       "imgMain": {
@@ -65,7 +65,7 @@
     {
       "id": "boda_demo3",
       "title": "INVITACIÓN PARA EVENTOS",
-      "categoria": "basica",
+      "categoria": ["all", "basica"],
       "url": "https://boda-demo3.netlify.app",
       "adaptado": ["Celular", "Tablet", "PC"],
       "imgMain": {
@@ -82,7 +82,7 @@
     {
       "id": "boda_demo4",
       "title": "INVITACIÓN PARA EVENTOS",
-      "categoria": "express",
+      "categoria": ["all", "express"],
       "url": "https://boda-demo4.netlify.app",
       "adaptado": ["Tablet", "PC"],
       "imgMain": {
@@ -96,7 +96,7 @@
     {
       "id": "darkhole",
       "title": "INVITACIÓN PARA EVENTO",
-      "categoria": "express",
+      "categoria": ["all", "express"],
       "url": "https://darkholeinvitation.netlify.app",
       "adaptado": ["Celular", "Tablet", "PC"],
       "imgMain": {
@@ -113,7 +113,7 @@
     {
       "id": "boda_demo5",
       "title": "INVITACIÓN PARA BODA",
-      "categoria": "basica",
+      "categoria": ["all", "basica"],
       "url": "https://boda5.netlify.app",
       "adaptado": ["Celular", "Tablet", "PC"],
       "imgMain": {
@@ -131,7 +131,7 @@
     {
       "id": "boda_demo6",
       "title": "INVITACIÓN PARA BODA",
-      "categoria": ["basica", "estandar"],
+      "categoria": ["all", "basica", "estandar"],
       "url": "https://boda6.netlify.app",
       "adaptado": ["Celular", "Tablet", "PC"],
       "imgMain": {
@@ -150,7 +150,7 @@
     {
       "id": "boda_demo7",
       "title": "INVITACIÓN PARA EVENTO",
-      "categoria": "basica",
+      "categoria": ["all", "basica"],
       "url": "https://boda7.netlify.app",
       "adaptado": ["Celular", "Tablet", "PC"],
       "imgMain": {
@@ -166,7 +166,7 @@
     {
       "id": "boda_demo8",
       "title": "INVITACIÓN PARA BODA",
-      "categoria": ["basica", "estandar"],
+      "categoria": ["aññ", "basica", "estandar"],
       "url": "https://boda8.netlify.app",
       "adaptado": ["Celular", "Tablet", "PC"],
       "imgMain": {
@@ -188,7 +188,7 @@
     {
       "id": "boda_demo9",
       "title": "INVITACIÓN PARA BODA",
-      "categoria": "basica",
+      "categoria": ["all", "basica"],
       "url": "https://boda9.netlify.app",
       "adaptado": ["Celular", "Tablet", "PC"],
       "imgMain": {
@@ -205,7 +205,7 @@
     {
       "id": "planetinvitation",
       "title": "INVITACIÓN PREMIUM",
-      "categoria": "premium",
+      "categoria": ["all", "premium"],
       "url": "https://planetinvitationvip.netlify.app",
       "adaptado": ["PC"],
       "imgMain": {
