@@ -53,11 +53,13 @@ export default function Planes({
   titulo = "Nuestro Catálogo",
   mostrarForma = true,
   afiliado = "default",
-}: PlanesProps) {
+  idUnica = "default", // <- Agregado aquí
+}: PlanesProps & { idUnica?: string }) {
   const [galeriaActiva, setGaleriaActiva] = useState<string | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isFirstSlide, setIsFirstSlide] = useState(true);
   const [isLastSlide, setIsLastSlide] = useState(false);
+  const id = `swiper-${idUnica ?? "default"}`;
 
   useEffect(() => {
     document.body.style.overflow = galeriaActiva ? "hidden" : "auto";
@@ -141,7 +143,7 @@ export default function Planes({
           <div className="product-slider relative">
             <Swiper
               spaceBetween={30}
-              navigation={{ nextEl: ".next", prevEl: ".prev" }}
+              navigation={{ nextEl: `.${id}-next`, prevEl: `.${id}-prev` }}
               modules={[Navigation]}
               slidesPerView={1}
               loop={false}
@@ -176,7 +178,7 @@ export default function Planes({
                         const uniqueCats = Array.from(new Set(cats));
                         return Array.from(
                           new Set(uniqueCats.map((c) => categorias[c as CategoriaTipo]))
-                        ).join(", "); // Esto ya se asegura de no agregar una coma al final.
+                        ).join(""); // Esto ya se asegura de no agregar una coma al final.
                       })()}
                     </span>
 
@@ -250,7 +252,7 @@ export default function Planes({
                             onClick={() =>
                               window.open(item.url, "_blank", "noopener,noreferrer")
                             }
-                            className="product-slider__cart"
+                            className="product-slider__cart md:translate-x-[7rem] xl:translate-x-[0rem]"
                           >
                             Ir a la página
                           </button>
@@ -260,7 +262,7 @@ export default function Planes({
 
                         {item.galeria && item.galeria.length > 0 && (
                           <button
-                            className="product-slider__cart"
+                            className="product-slider__cart md:translate-x-[7rem] xl:translate-x-[0rem]"
                             onClick={() => setGaleriaActiva(item.id)}
                           >
                             VER Fotos
@@ -276,7 +278,7 @@ export default function Planes({
 
             {/* Botones de navegación */}
             <button
-              className={`prev absolute z-10 left-[-50px] top-1/2 transform -translate-y-1/2 rounded-full w-12 h-12 flex items-center justify-center transition-opacity ${
+              className={`${id}-prev prev absolute z-10 left-[-50px] top-1/2 transform -translate-y-1/2 rounded-full w-12 h-12 flex items-center justify-center transition-opacity ${
                 isFirstSlide
                   ? "opacity-30 cursor-not-allowed bg-gray-500"
                   : "bg-white shadow-md text-black"
@@ -288,7 +290,7 @@ export default function Planes({
               </svg>
             </button>
             <button
-              className={`next absolute z-10 right-[-50px] top-1/2 transform -translate-y-1/2 rounded-full w-12 h-12 flex items-center justify-center transition-opacity ${
+              className={`${id}-next next absolute z-10 right-[-50px] top-1/2 transform -translate-y-1/2 rounded-full w-12 h-12 flex items-center justify-center transition-opacity ${
                 isLastSlide
                   ? "opacity-30 cursor-not-allowed bg-gray-500"
                   : "bg-white shadow-md text-black"

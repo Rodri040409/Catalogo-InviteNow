@@ -6,16 +6,19 @@ export default function Home() {
       {/* Esta muestra productos de categoría "basica" */}
       {/* all, express, basica, estandar, premium */}
       <Planes
+        key="catalogo"
+        idUnica="catalogo"
         categoria="all" 
         titulo="Nuestro catálogo"
         mostrarForma={false}
       />
-      
-      {/* Esta muestra planes personalizados */}
+
       <Planes
+        key="planes"
+        idUnica="planes"
         titulo="Conoce nuestros planes para Invitaciones"
         mostrarForma={true}
-        afiliado="default" // o "alexfotografia", etc.
+        afiliado="default"
       />
     </>
   );
