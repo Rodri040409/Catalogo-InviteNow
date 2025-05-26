@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
-import type { Swiper as SwiperClass } from 'swiper';
+import type { Swiper as SwiperInstance } from 'swiper/types';
 import "swiper/css";
 import "swiper/css/navigation";
 
@@ -184,11 +184,12 @@ export default function Planes({
               modules={[Navigation]}
               slidesPerView={1}
               loop={false}
-              onSwiper={(swiper: SwiperClass) => {
+              onSwiper={(swiper: SwiperInstance) => {
                 setIsFirstSlide(swiper.activeIndex === 0);
                 setIsLastSlide(swiper.activeIndex === swiper.slides.length - 1);
               }}
-              onSlideChange={(swiper: SwiperClass) => {
+
+              onSlideChange={(swiper: SwiperInstance) => {
                 const index = swiper.activeIndex;
                 setActiveIndex(index);
                 setIsFirstSlide(index === 0);
