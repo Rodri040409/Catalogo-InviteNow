@@ -10,10 +10,11 @@ export default function Header() {
     <header>
       {/* Cada vez que se renderiza, se remonta */}
       <Hero
-        key={`hero-${Date.now()}`} // <– Esto lo fuerza a animar cada vez
+        key={`hero-${Date.now()}`}
         title="Bienvenido a"
         highlight="InviteNow"
         subtitle="Invitaciones para ti"
+        afiliado="default" // <- Más adelante puedes hacerlo dinámico
       />
     </header>
   );

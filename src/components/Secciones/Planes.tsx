@@ -15,9 +15,11 @@ const categorias: Record<string, string> = {
   estandar: "Categoría básica/estándar",
   express: "Categoría express",
   premium: "Categoría premium",
+  personalizada: "Categoría personalizada",
 };
 
 type CategoriaTipo = keyof typeof categorias;
+
 
 interface Producto {
   id: string;
@@ -103,6 +105,28 @@ export default function Planes({
           ? cat.includes(categoria) // Si la categoría es un array, verifica si incluye la categoría
           : cat === categoria; // Si es una categoría única, compara directamente
       });
+    
+  function formatearPrecio(precio: string | number): {
+    principal: string;
+    sup?: string;
+    texto?: string;
+  } {
+    const textoOriginal = typeof precio === "string" ? precio.trim() : precio.toString();
+
+    // Separamos el número del texto (por ejemplo: "$950.00 o superior")
+    const match = textoOriginal.match(/^\$?([\d,]+)(?:\.(\d{2}))?(.*)?$/);
+    if (!match) return { principal: "$--" };
+
+    const [, enteroParte, decimalParte, textoParte] = match;
+    const numero = parseFloat(enteroParte.replace(/,/g, ""));
+    const textoLimpio = textoParte?.trim().toUpperCase();
+
+    return {
+      principal: `$${numero.toLocaleString("es-MX")}`,
+      sup: decimalParte === "00" ? "00" : undefined,
+      texto: textoLimpio || undefined,
+    };
+  }
 
   return (
     <section className="planes max-w-[100%] overflow-hidden">
@@ -187,12 +211,41 @@ export default function Planes({
                     </span>
 
 
-                      {!categoria && item.tipo && (
-                        <span className="product-slider__price leading-tight mt-2 block">
-                          {afiliadoData.precios[item.tipo as CategoriaTipo] ?? "$--"}
+                      {!categoria && (
+                        <span className="product-slider__price leading-tight mt-[3rem] xl:mt-[1.5rem] block">
+                          {(() => {
+                            const tipo: CategoriaTipo | undefined = item.tipo
+                              ? item.tipo
+                              : Array.isArray(item.categoria)
+                                ? (["personalizada", ...item.categoria].find((cat) =>
+                                    cat in afiliadoData.precios
+                                  ) as CategoriaTipo | undefined)
+                                : (item.categoria as CategoriaTipo);
+
+
+                          const raw = tipo && tipo in afiliadoData.precios
+                            ? afiliadoData.precios[tipo]
+                            : "";
+                            const { principal, sup, texto } = formatearPrecio(raw);
+
+                            return (
+                              <>
+                                <span>
+                                  {principal}
+                                  {sup && (
+                                    <>
+                                      .<sup className="text-[0.75em] relative top-[0.4em] ml-[0.05em]">{sup}</sup>
+                                    </>
+                                  )}
+                                </span>
+                                {texto && (
+                                  <span className="ml-4 uppercase">{texto}</span>
+                                )}
+                              </>
+                            );
+                          })()}
                         </span>
                       )}
-
 
                       <div className="product-ctr">
                         <div className="product-labels">
@@ -295,7 +348,7 @@ export default function Planes({
                     onClick={() => onSeleccionarCategoria?.("volver-home")}
                     className="w-[320px] text-center bg-gradient-to-r from-red-600 to-pink-600 hover:from-red-700 hover:to-pink-700 text-white font-bold py-5 md:py-6 rounded-full text-lg md:text-xl lg:text-2xl transition-all duration-300 shadow-lg tracking-wide"
                   >
-                    ← Página principal
+                    Página principal
                   </button>
                 </div>
               )}

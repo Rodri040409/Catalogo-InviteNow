@@ -65,7 +65,7 @@
     {
       "id": "personalizada",
       "title": "INVITACIÓN PERSONALIZADA",
-      "tipo": "premium",
+      "tipo": "personalizada",
       "dificultad": 100,
       "imgMain": {
         "ruta": "imagenes/0planes/fiesta5",

@@ -7,12 +7,14 @@ interface HeroProps {
   title?: string;
   highlight?: string;
   subtitle?: string;
+  afiliado?: string;
 }
 
 export default function Hero({
   title = 'Bienvenido a',
   highlight = 'InviteNow',
   subtitle = 'Invitaciones para ti',
+  afiliado = 'default',
 }: HeroProps) {
   const glowRef = useRef<HTMLSpanElement>(null);
 
@@ -76,6 +78,60 @@ export default function Hero({
           </span>
         </div>
         <div className="text-[3rem] leading-[1.0625] mt-2">{subtitle}</div>
+      </motion.div>
+
+      {/* Redes sociales fijas animadas en los extremos inferiores */}
+      <motion.div
+        className="absolute bottom-6 w-full px-8 flex items-center justify-between z-20"
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1, ease: 'easeOut', delay: 0.4 }}
+      >
+        {/* Instagram */}
+        <motion.a
+          href="https://www.instagram.com/invitenowmx"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-3 hover:scale-105 transition-transform"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.6 }}
+        >
+          <picture>
+            <source srcSet="/imagenes/2logos/instagram.avif" type="image/avif" />
+            <source srcSet="/imagenes/2logos/instagram.webp" type="image/webp" />
+            <img
+              src="/imagenes/2logos/instagram.png"
+              alt="Instagram"
+              className="w-8 h-8 md:w-10 md:h-10"
+            />
+          </picture>
+          <span className="text-white text-sm md:text-base">Síguenos en Instagram</span>
+        </motion.a>
+
+        {/* WhatsApp */}
+        {afiliado === 'default' && (
+          <motion.a
+            href="https://wa.me/2285062080?text=Hola%2C%20estoy%20interesado%20en%20sus%20invitaciones%20digitales%20de%20InviteNow%2C%20%C2%BFPodr%C3%ADan%20brindarme%20m%C3%A1s%20informaci%C3%B3n%3F"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-3 hover:scale-105 transition-transform"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.8 }}
+          >
+            <span className="text-white text-sm md:text-base">Contáctanos vía WhatsApp</span>
+            <picture>
+              <source srcSet="/imagenes/2logos/whatsapp.avif" type="image/avif" />
+              <source srcSet="/imagenes/2logos/whatsapp.webp" type="image/webp" />
+              <img
+                src="/imagenes/2logos/whatsapp.png"
+                alt="WhatsApp"
+                className="w-8 h-8 md:w-10 md:h-10"
+              />
+            </picture>
+          </motion.a>
+        )}
       </motion.div>
 
       {/* Local Animations */}

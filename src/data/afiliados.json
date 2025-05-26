@@ -1,29 +1,35 @@
 {
   "default": {
-    "telefono": "+52 2285062080",
+    "telefono": "2285062080",
+    "mensaje": "Hola, estoy interesado en las invitaciones digitales de InviteNow. ¿Podrían brindarme más información sobre sus opciones?",
     "precios": {
-      "basica": "$350",
-      "estandar": "$450",
-      "premium": "$650",
-      "express": "$300"
+      "basica": "$950.00",
+      "estandar": "$1600.00",
+      "premium": "$2100.00",
+      "express": "$350.00",
+      "personalizada": "$2000.00 o superior"
     }
   },
   "alexfotografia": {
-    "telefono": "+52 2281234567",
+    "telefono": "2281234567",
+    "mensaje": "¡Hola! Vi tus diseños en InviteNow y me encantaría conocer más sobre tus invitaciones y precios.",
     "precios": {
       "basica": "$390",
       "estandar": "$500",
       "premium": "$700",
-      "express": "$350"
+      "express": "$350",
+      "personalizada": "$850 o superior"
     }
   },
   "estudiocarmen": {
-    "telefono": "+52 2287654321",
+    "telefono": "2287654321",
+    "mensaje": "Hola, estoy viendo tus invitaciones en InviteNow y me interesa saber más sobre tus planes y si haces diseños personalizados.",
     "precios": {
       "basica": "$370",
       "estandar": "$480",
       "premium": "$680",
-      "express": "$330"
+      "express": "$330",
+      "personalizada": "$900 o superior"
     }
   }
 }
