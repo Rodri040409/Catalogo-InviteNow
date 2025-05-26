@@ -37,9 +37,9 @@ interface Producto {
   dificultad?: number;
 }
 
-
 interface Afiliado {
   telefono: string;
+  mensaje: string; // 👈 Aquí estaba el problema
   precios: Record<CategoriaTipo, string>;
 }
 
@@ -132,20 +132,28 @@ export default function Planes({
     <section className="planes max-w-[100%] overflow-hidden">
       <div className="text-white text-center xl:scale-[1.2] mb-12">
         <h2 className="text-[clamp(2rem,5vw,3.5rem)] font-bold leading-tight text-center mt-[4rem]">
-          {titulo.split(" ").map((word, index) =>
-            index === 1 ? (
+          {titulo.split(" ").map((word, index) => {
+            const palabraNormalizada = word
+              .normalize("NFD")
+              .replace(/[\u0300-\u036f]/g, "")
+              .toLowerCase();
+            const palabrasClave = ["planes", "invitaciones", "catalogo", "nuestros"];
+
+            const esClave = palabrasClave.includes(palabraNormalizada);
+
+            return (
               <span
                 key={index}
-                className="bg-gradient-to-r from-green-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent"
+                className={
+                  esClave
+                    ? "bg-gradient-to-r from-green-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent"
+                    : "text-white"
+                }
               >
                 {word + " "}
               </span>
-            ) : (
-              <span key={index} className="text-white">
-                {word + " "}
-              </span>
-            )
-          )}
+            );
+          })}
         </h2>
       </div>
 
@@ -314,16 +322,31 @@ export default function Planes({
                           )}
 
                           {mostrarPlanes && item.tipo && (
-                            <button
-                              className="product-slider__cart md:translate-x-[7rem] xl:translate-x-[0rem]"
-                              onClick={() => {
-                                if (item.tipo) {
-                                  onSeleccionarCategoria?.(item.tipo); // ✅ Solo cambia la categoría
+                            item.tipo === "personalizada" ? (
+                              <button
+                                onClick={() =>
+                                  window.open(
+                                    `https://wa.me/${afiliadoData.telefono}?text=${encodeURIComponent(afiliadoData.mensaje)}`,
+                                    "_blank",
+                                    "noopener,noreferrer"
+                                  )
                                 }
-                              }}
-                            >
-                              Ver opciones
-                            </button>
+                                className="product-slider__cart md:translate-x-[7rem] xl:translate-x-[0rem]"
+                              >
+                                Contactar
+                              </button>
+                            ) : (
+                              <button
+                                className="product-slider__cart md:translate-x-[7rem] xl:translate-x-[0rem]"
+                                onClick={() => {
+                                  if (item.tipo) {
+                                    onSeleccionarCategoria?.(item.tipo);
+                                  }
+                                }}
+                              >
+                                Ver opciones
+                              </button>
+                            )
                           )}
 
                         {item.galeria && item.galeria.length > 0 && (

@@ -1,20 +1,33 @@
-'use client';
+import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
+import Hero from "@/components/text/Hero";
+import afiliadosData from "@/data/afiliados.json";
 
-import { usePathname } from 'next/navigation';
-import Hero from '@/components/text/Hero';
+type AfiliadoKey = keyof typeof afiliadosData;
 
 export default function Header() {
-  const pathname = usePathname(); // Para que la key cambie si navegás entre rutas (opcional)
+  const pathname = usePathname();
+  const [afiliado, setAfiliado] = useState<AfiliadoKey>("default");
+
+  useEffect(() => {
+    const host = typeof window !== "undefined" ? window.location.hostname : "";
+    const match = host.match(/catalogo_invitenow-([\w\d_-]+)\./i);
+
+    if (match && match[1] in afiliadosData) {
+      setAfiliado(match[1] as AfiliadoKey);
+    } else {
+      setAfiliado("default");
+    }
+  }, []);
 
   return (
     <header>
-      {/* Cada vez que se renderiza, se remonta */}
       <Hero
         key={`hero-${Date.now()}`}
         title="Bienvenido a"
         highlight="InviteNow"
         subtitle="Invitaciones para ti"
-        afiliado="default" // <- Más adelante puedes hacerlo dinámico
+        afiliado={afiliado as string}
       />
     </header>
   );

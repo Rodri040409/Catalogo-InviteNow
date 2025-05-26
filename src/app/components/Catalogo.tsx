@@ -3,13 +3,16 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Planes from "@/components/Secciones/Planes";
+import afiliadosData from "@/data/afiliados.json";
 
 interface CatalogoProps {
   categoriaSeleccionada: string | null;
   onSeleccionarCategoria: (cat: string | null) => void;
+  afiliado: keyof typeof afiliadosData;
 }
 
-export default function Catalogo({ categoriaSeleccionada, onSeleccionarCategoria }: CatalogoProps) {
+
+export default function Catalogo({ categoriaSeleccionada, onSeleccionarCategoria, afiliado }: CatalogoProps) {
   const [fadeOverlay, setFadeOverlay] = useState(false);
   const [heroKey, setHeroKey] = useState(Date.now());
 
@@ -18,8 +21,7 @@ export default function Catalogo({ categoriaSeleccionada, onSeleccionarCategoria
 
     setTimeout(() => {
       window.scrollTo({ top: 0 });
-      
-      // Cambia a null si es "volver-home" para mostrar Hero
+
       if (cat === "volver-home") {
         onSeleccionarCategoria(null);
         setHeroKey(Date.now());
@@ -63,6 +65,7 @@ export default function Catalogo({ categoriaSeleccionada, onSeleccionarCategoria
               categoria={categoriaSeleccionada}
               titulo="Nuestro catálogo"
               mostrarForma={false}
+              afiliado={afiliado}
               onSeleccionarCategoria={handleSeleccionarCategoria}
             />
           </motion.div>
@@ -80,6 +83,7 @@ export default function Catalogo({ categoriaSeleccionada, onSeleccionarCategoria
               categoria="all"
               titulo="Nuestro catálogo"
               mostrarForma={false}
+              afiliado={afiliado}
               onSeleccionarCategoria={handleSeleccionarCategoria}
             />
 
@@ -88,7 +92,7 @@ export default function Catalogo({ categoriaSeleccionada, onSeleccionarCategoria
               idUnica="planes"
               titulo="Conoce nuestros planes para Invitaciones"
               mostrarForma={true}
-              afiliado="default"
+              afiliado={afiliado}
               onSeleccionarCategoria={handleSeleccionarCategoria}
             />
           </motion.div>

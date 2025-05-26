@@ -2,12 +2,13 @@
 
 import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
+import afiliadosData from '@/data/afiliados.json';
 
 interface HeroProps {
   title?: string;
   highlight?: string;
   subtitle?: string;
-  afiliado?: string;
+  afiliado?: keyof typeof afiliadosData; // 👈 en lugar de string
 }
 
 export default function Hero({
