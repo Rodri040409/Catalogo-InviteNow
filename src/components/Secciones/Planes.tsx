@@ -188,7 +188,7 @@ export default function Planes({
                 setIsFirstSlide(swiper.activeIndex === 0);
                 setIsLastSlide(swiper.activeIndex === swiper.slides.length - 1);
               }}
-              onSlideChange={(swiper) => {
+              onSlideChange={(swiper: SwiperClass) => {
                 const index = swiper.activeIndex;
                 setActiveIndex(index);
                 setIsFirstSlide(index === 0);
