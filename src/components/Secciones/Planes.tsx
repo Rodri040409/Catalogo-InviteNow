@@ -53,8 +53,12 @@ export default function Planes({
   titulo = "Nuestro Catálogo",
   mostrarForma = true,
   afiliado = "default",
-  idUnica = "default", // <- Agregado aquí
-}: PlanesProps & { idUnica?: string }) {
+  idUnica = "default",
+  onSeleccionarCategoria,
+}: PlanesProps & {
+  idUnica?: string;
+  onSeleccionarCategoria?: (cat: string) => void;
+}) {
   const [galeriaActiva, setGaleriaActiva] = useState<string | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isFirstSlide, setIsFirstSlide] = useState(true);
@@ -247,18 +251,27 @@ export default function Planes({
                         }`}
                       >
 
-                        {item.url ? (
-                          <button
-                            onClick={() =>
-                              window.open(item.url, "_blank", "noopener,noreferrer")
-                            }
-                            className="product-slider__cart md:translate-x-[7rem] xl:translate-x-[0rem]"
-                          >
-                            Ir a la página
-                          </button>
-                        ) : (
-                          <button className="product-slider__cart">Ver opciones</button>
-                        )}
+                        {item.url && (
+                            <button
+                              onClick={() => window.open(item.url, "_blank", "noopener,noreferrer")}
+                              className="product-slider__cart md:translate-x-[7rem] xl:translate-x-[0rem]"
+                            >
+                              Ir a la página
+                            </button>
+                          )}
+
+                          {mostrarPlanes && item.tipo && (
+                            <button
+                              className="product-slider__cart md:translate-x-[7rem] xl:translate-x-[0rem]"
+                              onClick={() => {
+                                if (item.tipo) {
+                                  onSeleccionarCategoria?.(item.tipo); // ✅ Solo cambia la categoría
+                                }
+                              }}
+                            >
+                              Ver opciones
+                            </button>
+                          )}
 
                         {item.galeria && item.galeria.length > 0 && (
                           <button
@@ -275,6 +288,17 @@ export default function Planes({
                 </SwiperSlide>
               ))}
             </Swiper>
+
+            {categoria && categoria !== "all" && (
+                <div className="w-full flex justify-center mt-24 mb-10">
+                  <button
+                    onClick={() => onSeleccionarCategoria?.("volver-home")}
+                    className="w-[320px] text-center bg-gradient-to-r from-red-600 to-pink-600 hover:from-red-700 hover:to-pink-700 text-white font-bold py-5 md:py-6 rounded-full text-lg md:text-xl lg:text-2xl transition-all duration-300 shadow-lg tracking-wide"
+                  >
+                    ← Página principal
+                  </button>
+                </div>
+              )}
 
             {/* Botones de navegación */}
             <button
