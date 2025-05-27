@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useLayoutEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import afiliadosData from '@/data/afiliados.json';
 
@@ -18,26 +18,26 @@ export default function Hero({
   afiliado = 'default',
 }: HeroProps) {
   const glowRef = useRef<HTMLSpanElement>(null);
-  const hasSetVH = useRef(false); // evita múltiples ejecuciones
 
-  useEffect(() => {
-    const setVH = () => {
-      if (hasSetVH.current) return;
+  // Establecer --vh una sola vez
+  useLayoutEffect(() => {
+    const handleLoad = () => {
       const vh = window.innerHeight * 0.01;
       document.documentElement.style.setProperty('--vh', `${vh}px`);
-      hasSetVH.current = true;
     };
 
-    setVH(); // solo al cargar
+    if (document.readyState === 'complete') {
+      handleLoad();
+    } else {
+      window.addEventListener('load', handleLoad);
+    }
 
-    // Extra: puedes permitir un segundo ajuste si el usuario rota el dispositivo rápido
-    const timeout = setTimeout(() => {
-      hasSetVH.current = true;
-    }, 1500);
-
-    return () => clearTimeout(timeout);
+    return () => {
+      window.removeEventListener('load', handleLoad);
+    };
   }, []);
 
+  // Efecto glow
   useEffect(() => {
     const glowSpan = glowRef.current;
     if (glowSpan && !glowSpan.querySelector('.glow-inner')) {
@@ -162,6 +162,10 @@ export default function Hero({
         @keyframes onloadscale {
           24% { transform: scale(1); }
           100% { transform: scale(1.02); }
+        }
+        @keyframes onloadopacity {
+          24% { opacity: 0; }
+          100% { opacity: 1; }
         }
         .animate-glowScale {
           animation: onloadscale 1s ease-out forwards;
