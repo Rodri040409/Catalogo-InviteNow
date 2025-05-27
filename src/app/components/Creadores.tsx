@@ -1,4 +1,4 @@
-import CreatorsGrid from '@/components/text/CreatorsGrid';
+import CreatorsGrid from '@/components/Secciones/CreatorsGrid';
 
 export default function HomePage() {
   return (
