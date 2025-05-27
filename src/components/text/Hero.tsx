@@ -8,7 +8,7 @@ interface HeroProps {
   title?: string;
   highlight?: string;
   subtitle?: string;
-  afiliado?: keyof typeof afiliadosData; // 👈 en lugar de string
+  afiliado?: keyof typeof afiliadosData;
 }
 
 export default function Hero({
@@ -18,6 +18,17 @@ export default function Hero({
   afiliado = 'default',
 }: HeroProps) {
   const glowRef = useRef<HTMLSpanElement>(null);
+
+  // ✅ Solución dinámica a vh real
+  useEffect(() => {
+    const setVH = () => {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    };
+    setVH();
+    window.addEventListener('resize', setVH);
+    return () => window.removeEventListener('resize', setVH);
+  }, []);
 
   useEffect(() => {
     const glowSpan = glowRef.current;
@@ -32,7 +43,10 @@ export default function Hero({
   }, [highlight]);
 
   return (
-    <section className="relative min-h-screen md:min-h-[100dvh] overflow-hidden bg-black flex items-center justify-center">
+    <section
+      className="relative w-full overflow-hidden bg-black flex items-center justify-center"
+      style={{ minHeight: 'calc(var(--vh, 1vh) * 100)' }}
+    >
       {/* Background Circles */}
       <motion.div
         className="absolute lg:w-[110%] w-[140%] h-[120%] rounded-[30%] scale-[1.3] lg:left-[-7rem] -translate-x-1/2 shadow-[inset_0_0_4rem_3rem_rgba(238,200,175,0.2),inset_0_0_2rem_0.4rem_rgba(238,200,175,0.2),0_0_0.1rem_0.1rem_rgba(238,200,175,0.2),0_0_1rem_0.4rem_rgba(238,200,175,0.3)] opacity-60 z-0 top-[-27%] md:top-[-26%] lg:top-[-25%] xl:top-[-29%]"
@@ -81,7 +95,7 @@ export default function Hero({
         <div className="text-[3rem] leading-[1.0625] mt-2">{subtitle}</div>
       </motion.div>
 
-      {/* Redes sociales fijas animadas en los extremos inferiores */}
+      {/* Redes sociales */}
       <motion.div
         className="absolute bottom-6 w-full px-8 flex items-center justify-between z-20"
         initial={{ opacity: 0, scale: 0.9 }}
