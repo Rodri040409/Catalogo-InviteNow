@@ -7,7 +7,7 @@ const items = [
   { type: 'shape', color: 'bg-cyan-300', rounded: 'rounded-[50%_50%_0_50%]', index: 1 },
   { type: 'image', src: '/imagenes/1creadores/Rodrigo1.jpg', index: 2 },
   { type: 'shape', color: 'bg-green-400', rounded: 'rounded-full', index: 3 },
-  { type: 'image', src: '/imagenes/1creadores/fernando2.jpg', index: 4 },
+  { type: 'image', src: '/imagenes/1creadores/Fernando2.jpg', index: 4 },
   { type: 'image', src: '/imagenes/1creadores/fernando1.jpg', index: 10 },
   { type: 'shape', color: 'bg-purple-400', rounded: 'rounded-[0_50%_50%_50%]', index: 6 },
   { type: 'image', src: '/imagenes/1creadores/Fer-Rodri.jpg', index: 12 },

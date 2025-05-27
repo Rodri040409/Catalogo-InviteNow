@@ -75,6 +75,16 @@ export default function Planes({
     };
   }, [galeriaActiva]);
 
+  useEffect(() => {
+    if (galeriaActiva) {
+      const galeria = dataFiltrada.find((i) => i.id === galeriaActiva)?.galeria ?? [];
+      galeria.forEach((src) => {
+        const img = new Image();
+        img.src = `/${src}`;
+      });
+    }
+  }, [galeriaActiva]);
+
   const afiliadoData: Afiliado = afiliadosData[afiliado] || afiliadosData.default;
 
   // Si se pasó una categoría, asumimos que se quieren ver productos
@@ -443,11 +453,17 @@ export default function Planes({
               {(dataFiltrada.find((i) => i.id === galeriaActiva)?.galeria ?? []).map(
                 (img, idx) => (
                   <SwiperSlide key={idx}>
-                    <img
-                      src={`/${img}`}
-                      alt=""
-                      className="max-h-[80vh] object-contain mx-auto rounded-lg shadow-lg"
-                    />
+                    <div
+                      className="mx-auto w-full max-w-4xl aspect-[4/3] relative overflow-hidden bg-[#0d0d0d] rounded-lg shadow-lg"
+                    >
+                      <img
+                        src={`/${img}`}
+                        alt={`Imagen ${idx + 1} de galería`}
+                        loading="lazy"
+                        decoding="async"
+                        className="absolute inset-0 w-full h-full object-contain transition-opacity duration-300 ease-in-out"
+                      />
+                    </div>
                   </SwiperSlide>
                 )
               )}
