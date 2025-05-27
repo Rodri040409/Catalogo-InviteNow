@@ -12,13 +12,13 @@
   },
   "demoafiliado": {
     "telefono": "2280000000",
-    "mensaje": "¡Hola! Estoy viendo su catálogo en InviteNow y me interesa una invitación personalizada. ¿Pueden decirme más sobre sus diseños y precios?",
+    "mensaje": "¡Hola! Estoy probando el sistema de afiliados de InviteNow y me gustaría conocer cómo puedo personalizar precios y contenido como este.",
     "precios": {
-      "basica": "$500",
-      "estandar": "$750",
-      "premium": "$1000",
-      "express": "$400",
-      "personalizada": "$1200 o superior"
+      "basica": "$500 (ejemplo)",
+      "estandar": "$750 (editable)",
+      "premium": "$1000 (ajustable)",
+      "express": "$400 (de muestra)",
+      "personalizada": "$1200 o superior (personalizable)"
     }
   }
 }
