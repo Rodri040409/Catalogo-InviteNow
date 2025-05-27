@@ -32,7 +32,7 @@ export default function Hero({
   }, [highlight]);
 
   return (
-    <section className="relative h-screen overflow-hidden bg-black flex items-center justify-center">
+    <section className="relative min-h-screen md:min-h-[100dvh] overflow-hidden bg-black flex items-center justify-center">
       {/* Background Circles */}
       <motion.div
         className="absolute lg:w-[110%] w-[140%] h-[120%] rounded-[30%] scale-[1.3] lg:left-[-7rem] -translate-x-1/2 shadow-[inset_0_0_4rem_3rem_rgba(238,200,175,0.2),inset_0_0_2rem_0.4rem_rgba(238,200,175,0.2),0_0_0.1rem_0.1rem_rgba(238,200,175,0.2),0_0_1rem_0.4rem_rgba(238,200,175,0.3)] opacity-60 z-0 top-[-27%] md:top-[-26%] lg:top-[-25%] xl:top-[-29%]"
