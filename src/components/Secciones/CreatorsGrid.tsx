@@ -41,7 +41,7 @@ export default function CreatorsGrid() {
   return (
     <>
       <section
-        className="w-full min-h-[100dvh] md:min-h-[70vh] bg-[radial-gradient(circle,_rgba(67,69,112,1)_3%,_rgba(35,36,57,1)_60%)] overflow-hidden px-4 md:px-6 py-12 md:py-20 flex justify-center items-center"
+        className="w-full min-h-[100dvh] md:min-h-[100vh] bg-[radial-gradient(circle,_rgba(67,69,112,1)_3%,_rgba(35,36,57,1)_60%)] overflow-hidden px-4 md:px-6 py-12 md:py-20 flex justify-center items-center"
       >
         <div className="w-full max-w-[1100px] flex flex-col md:flex-row items-center gap-[8rem]">
           {/* Left Title */}
