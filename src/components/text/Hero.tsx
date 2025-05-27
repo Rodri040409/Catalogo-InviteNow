@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import afiliadosData from '@/data/afiliados.json';
 
@@ -18,17 +18,40 @@ export default function Hero({
   afiliado = 'default',
 }: HeroProps) {
   const glowRef = useRef<HTMLSpanElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const [isVisible, setIsVisible] = useState(true);
 
-  // ✅ Solución dinámica a vh real
+  // Solo actualiza --vh cuando el Hero es visible
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      { threshold: 0.25 }
+    );
+
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
+
   useEffect(() => {
     const setVH = () => {
       const vh = window.innerHeight * 0.01;
       document.documentElement.style.setProperty('--vh', `${vh}px`);
     };
-    setVH();
-    window.addEventListener('resize', setVH);
-    return () => window.removeEventListener('resize', setVH);
-  }, []);
+
+    if (isVisible) {
+      setVH();
+      window.addEventListener('resize', setVH);
+    }
+
+    return () => {
+      window.removeEventListener('resize', setVH);
+    };
+  }, [isVisible]);
 
   useEffect(() => {
     const glowSpan = glowRef.current;
@@ -44,6 +67,7 @@ export default function Hero({
 
   return (
     <section
+      ref={sectionRef}
       className="relative w-full overflow-hidden bg-black flex items-center justify-center"
       style={{ minHeight: 'calc(var(--vh, 1vh) * 100)' }}
     >
@@ -74,7 +98,7 @@ export default function Hero({
         </defs>
       </svg>
 
-      {/* Text Block */}
+      {/* Text */}
       <motion.div
         className="text-[#c8c2bd] text-center font-semibold tracking-[-0.009em] z-10"
         initial={{ scale: 1 }}
@@ -149,7 +173,7 @@ export default function Hero({
         )}
       </motion.div>
 
-      {/* Local Animations */}
+      {/* Animaciones locales */}
       <style>{`
         @keyframes onloadscale {
           24% { transform: scale(1); }
