@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import afiliadosData from '@/data/afiliados.json';
 
@@ -18,40 +18,25 @@ export default function Hero({
   afiliado = 'default',
 }: HeroProps) {
   const glowRef = useRef<HTMLSpanElement>(null);
-  const sectionRef = useRef<HTMLElement>(null);
-  const [isVisible, setIsVisible] = useState(true);
-
-  // Solo actualiza --vh cuando el Hero es visible
-  useEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsVisible(entry.isIntersecting);
-      },
-      { threshold: 0.25 }
-    );
-
-    observer.observe(section);
-    return () => observer.disconnect();
-  }, []);
+  const hasSetVH = useRef(false); // evita múltiples ejecuciones
 
   useEffect(() => {
     const setVH = () => {
+      if (hasSetVH.current) return;
       const vh = window.innerHeight * 0.01;
       document.documentElement.style.setProperty('--vh', `${vh}px`);
+      hasSetVH.current = true;
     };
 
-    if (isVisible) {
-      setVH();
-      window.addEventListener('resize', setVH);
-    }
+    setVH(); // solo al cargar
 
-    return () => {
-      window.removeEventListener('resize', setVH);
-    };
-  }, [isVisible]);
+    // Extra: puedes permitir un segundo ajuste si el usuario rota el dispositivo rápido
+    const timeout = setTimeout(() => {
+      hasSetVH.current = true;
+    }, 1500);
+
+    return () => clearTimeout(timeout);
+  }, []);
 
   useEffect(() => {
     const glowSpan = glowRef.current;
@@ -67,7 +52,6 @@ export default function Hero({
 
   return (
     <section
-      ref={sectionRef}
       className="relative w-full overflow-hidden bg-black flex items-center justify-center"
       style={{ minHeight: 'calc(var(--vh, 1vh) * 100)' }}
     >
@@ -98,7 +82,7 @@ export default function Hero({
         </defs>
       </svg>
 
-      {/* Text */}
+      {/* Text Block */}
       <motion.div
         className="text-[#c8c2bd] text-center font-semibold tracking-[-0.009em] z-10"
         initial={{ scale: 1 }}
@@ -173,15 +157,11 @@ export default function Hero({
         )}
       </motion.div>
 
-      {/* Animaciones locales */}
+      {/* Local Animations */}
       <style>{`
         @keyframes onloadscale {
           24% { transform: scale(1); }
           100% { transform: scale(1.02); }
-        }
-        @keyframes onloadopacity {
-          24% { opacity: 0; }
-          100% { opacity: 1; }
         }
         .animate-glowScale {
           animation: onloadscale 1s ease-out forwards;
