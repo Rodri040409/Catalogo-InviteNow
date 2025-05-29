@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useLayoutEffect } from 'react';
 import classNames from 'classnames';
 
 const items = [
@@ -19,6 +19,25 @@ const items = [
 ];
 
 export default function CreatorsGrid() {
+
+  // Establecer --vh una sola vez
+  useLayoutEffect(() => {
+    const handleLoad = () => {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    };
+
+    if (document.readyState === 'complete') {
+      handleLoad();
+    } else {
+      window.addEventListener('load', handleLoad);
+    }
+
+    return () => {
+      window.removeEventListener('load', handleLoad);
+    };
+  }, []);
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -41,7 +60,8 @@ export default function CreatorsGrid() {
   return (
     <>
       <section
-        className="w-full min-h-[100dvh] md:min-h-[60vh] xl:min-h-[100vh] bg-[radial-gradient(circle,_rgba(67,69,112,1)_3%,_rgba(35,36,57,1)_60%)] overflow-hidden px-4 md:px-6 py-12 md:py-20 flex justify-center items-center"
+        className="w-full bg-[radial-gradient(circle,_rgba(67,69,112,1)_3%,_rgba(35,36,57,1)_60%)] overflow-hidden px-4 md:px-6 py-12 md:py-20 flex justify-center items-center"
+        style={{ minHeight: 'calc(var(--vh, 1vh) * 100)' }}
       >
         <div className="w-full max-w-[1100px] flex flex-col md:flex-row items-center gap-[8rem]">
           {/* Left Title */}
