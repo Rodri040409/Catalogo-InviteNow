@@ -11,10 +11,23 @@ interface CatalogoProps {
   afiliado: keyof typeof afiliadosData;
 }
 
+type EventoTipo = 'boda' | 'xv' | 'cumpleaños' | 'evento' | 'bautizo' | 'confirmacion' | 'personalizado';
+
+const eventos: { key: EventoTipo | null; label: string }[] = [
+  { key: null, label: "Todos los eventos" },
+  { key: "boda", label: "Boda" },
+  { key: "xv", label: "XV Años" },
+  { key: "cumpleaños", label: "Cumpleaños" },
+  { key: "bautizo", label: "Bautizo" },
+  { key: "confirmacion", label: "Confirmación" },
+  { key: "evento", label: "Evento general" },
+  { key: "personalizado", label: "Personalizado" },
+];
 
 export default function Catalogo({ categoriaSeleccionada, onSeleccionarCategoria, afiliado }: CatalogoProps) {
   const [fadeOverlay, setFadeOverlay] = useState(false);
   const [heroKey, setHeroKey] = useState(Date.now());
+  const [eventoSeleccionado, setEventoSeleccionado] = useState<EventoTipo | null>(null);
 
   const handleSeleccionarCategoria = (cat: string | null) => {
     setFadeOverlay(true);
@@ -24,6 +37,7 @@ export default function Catalogo({ categoriaSeleccionada, onSeleccionarCategoria
 
       if (cat === "volver-home") {
         onSeleccionarCategoria(null);
+        setEventoSeleccionado(null); // limpia también el filtro de eventos
         setHeroKey(Date.now());
       } else {
         onSeleccionarCategoria(cat);
@@ -37,7 +51,6 @@ export default function Catalogo({ categoriaSeleccionada, onSeleccionarCategoria
 
   return (
     <>
-      {/* Overlay negro de transición */}
       <AnimatePresence>
         {fadeOverlay && (
           <motion.div
