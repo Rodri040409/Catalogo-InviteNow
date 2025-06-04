@@ -163,12 +163,12 @@
       "url": "https://confirmacion1.vercel.app",
       "adaptado": ["Celular", "Tablet", "PC"],
       "imgMain": {
-        "ruta": "imagenes/Confirmacion/confirmacion1/confirmacion1",
+        "ruta": "imagenes/Confirmacion/Confirmacion1/confirmacion1",
         "extension": "png"
       },
       "galeria": [
-        "imagenes/Confirmacion/confirmacion1/1.png",
-        "imagenes/Confirmacion/confirmacion1/2.png"
+        "imagenes/Confirmacion/Confirmacion1/1.png",
+        "imagenes/Confirmacion/Confirmacion1/2.png"
       ]
     },
     {
