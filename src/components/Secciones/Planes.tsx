@@ -215,6 +215,7 @@ export default function Planes({
       {/* Categorías de eventos para filtración */}
       {categoria && (
         <div className="relative">
+          {/* Flecha de scroll */}
           <div className="absolute right-2 bottom-0 z-30 animate-bounce lg:hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -226,7 +227,17 @@ export default function Planes({
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
             </svg>
           </div>
-          {/* Aquí el contenedor actual de GooeyNav */}
+
+          {/* Texto indicativo */}
+          <p className="text-center text-sm text-white/60 mt-2 mb-[-0.5rem] lg:hidden">
+            Desliza para ver más →
+          </p>
+
+          {/* Sombras laterales para indicar scroll */}
+          <div className="absolute left-0 top-0 bottom-0 w-6 bg-gradient-to-r from-[#1c1c3a] to-transparent pointer-events-none z-10 lg:hidden" />
+          <div className="absolute right-0 top-0 bottom-0 w-6 bg-gradient-to-l from-[#1c1c3a] to-transparent pointer-events-none z-10 lg:hidden" />
+
+          {/* Contenedor GooeyNav */}
           <div className="w-full px-4 mt-8 mb-[-8rem] relative z-20 overflow-y-hidden lg:overflow-visible">
             <div className="overflow-visible">
               <div className="max-w-[1200px] mx-auto overflow-visible">
