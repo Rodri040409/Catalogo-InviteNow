@@ -176,7 +176,7 @@
       "id": "boda_demo8",
       "title": "INVITACIÓN PARA BODA",
       "eventos": ["boda", "xv"],
-      "categoria": ["aññ", "basica", "estandar"],
+      "categoria": ["all", "basica", "estandar"],
       "url": "https://boda8.netlify.app",
       "adaptado": ["Celular", "Tablet", "PC"],
       "imgMain": {

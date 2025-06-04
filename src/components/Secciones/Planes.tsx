@@ -12,9 +12,9 @@ import productos from "@/data/productos.json";
 import planes from "@/data/planes.json";
 import afiliadosData from "@/data/afiliados.json";
 
-const categorias: Record<string, string> = {
-  basica: "Categoría básica/estándar",
-  estandar: "Categoría básica/estándar",
+export const categorias: Record<string, string> = {
+  basica: "Categoría básica",
+  estandar: "Categoría estándar",
   express: "Categoría express",
   premium: "Categoría premium",
   personalizada: "Categoría personalizada",
@@ -47,7 +47,7 @@ interface Afiliado {
 }
 
 interface PlanesProps {
-  categoria?: CategoriaTipo;
+  categoria?: CategoriaTipo | null;
   evento?: 'boda' | 'xv' | 'cumpleaños' | 'evento' | 'bautizo' | 'confirmacion' | 'personalizado';
   titulo?: string;
   mostrarForma?: boolean;
@@ -97,8 +97,9 @@ export default function Planes({
   const productosTyped = productos as { invitaciones?: Producto[] };
   const planesTyped = planes as { planes?: Producto[] };
 
-  const mostrarProductos = categoria !== undefined;
-  const mostrarPlanes = categoria === undefined;
+  const mostrarPlanes = categoria === undefined || categoria === "general";
+  const mostrarProductos = !mostrarPlanes;
+
 
 
   const items: Producto[] = 
@@ -116,7 +117,7 @@ export default function Planes({
   // 1. Filtrar productos sin usar dataFiltrada dentro del filtro
   const dataFiltrada: Producto[] = uniqueItems.filter((item) => {
     const coincideCategoria =
-      !categoria || categoria === "all"
+      !categoria || categoria === "all" || categoria === "general"
         ? true
         : Array.isArray(item.categoria)
           ? item.categoria.includes(categoria)
@@ -190,7 +191,7 @@ export default function Planes({
               .normalize("NFD")
               .replace(/[\u0300-\u036f]/g, "")
               .toLowerCase();
-            const palabrasClave = ["planes", "invitaciones", "catalogo", "nuestros"];
+            const palabrasClave = ["planes", "invitaciones", "catalogo", "nuestros", "express", "basica", "estandar", "premium"];
 
             const esClave = palabrasClave.includes(palabraNormalizada);
 
@@ -271,9 +272,27 @@ export default function Planes({
                   <h3 className="text-2xl md:text-3xl font-bold mb-4">
                     No hay invitaciones disponibles en esta categoría
                   </h3>
-                  <p className="text-base md:text-lg text-gray-300">
+                  <p className="text-base md:text-lg text-gray-300 mb-6">
                     Te invitamos a explorar otras opciones.
                   </p>
+
+                  {/* Botón de volver incluso si no hay resultados */}
+                  {categoria && categoria !== "all" && (
+                    <div className="w-full flex justify-center mt-24 mb-10 relative z-[100] pointer-events-auto">
+                      <button
+                        onClick={() => onSeleccionarCategoria?.("volver-home")}
+                        className="w-[320px] text-center bg-gradient-to-r from-red-600 to-pink-600 hover:from-red-700 hover:to-pink-700 text-white font-bold py-5 md:py-6 rounded-full text-lg md:text-xl lg:text-2xl transition-all duration-300 shadow-lg tracking-wide focus:outline-none"
+                        style={{
+                          position: 'relative',
+                          zIndex: 9999,
+                          pointerEvents: 'auto',
+                        }}
+                      >
+                        Página principal
+                      </button>
+                    </div>
+                  )}
+
                 </div>
               </div>
             ) : (
@@ -322,23 +341,35 @@ export default function Planes({
                   >
                     <div className="product-slider__card">
                       <div className="product-slider__content">
-                        <h1 className="product-slider__title">{item.title}</h1>
+                        <h2 className="product-slider__title">{item.title}</h2>
 
-                        <span className="product-slider__price leading-tight mb-[-2rem]">
-                        {(() => {
-                          const cats = Array.isArray(item.categoria)
-                            ? item.categoria
-                            : [item.categoria];
-                          const uniqueCats = Array.from(new Set(cats));
-                          return Array.from(
-                            new Set(uniqueCats.map((c) => categorias[c as CategoriaTipo]))
-                          ).join(""); // Esto ya se asegura de no agregar una coma al final.
-                        })()}
-                      </span>
+                        {!mostrarPlanes && (
+                          <span className="product-slider__price leading-tight mb-[-2rem] block">
+                            {(() => {
+                              const cats = Array.isArray(item.categoria)
+                                ? item.categoria
+                                : [item.categoria];
 
+                              const filtradas = cats.filter(
+                                (cat): cat is string => typeof cat === "string" && cat !== "all"
+                              );
+
+                              const texto = filtradas.map((c) => c.toUpperCase()).join(" /");
+
+                              return (
+                                <>
+                                  CATEGORÍA<br />
+                                  <span className="bg-gradient-to-r from-green-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent">
+                                    {texto}
+                                  </span>
+                                </>
+                              );
+                            })()}
+                          </span>
+                        )}
 
                         {!categoria && (
-                          <span className="product-slider__price leading-tight mt-[3rem] xl:mt-[1.5rem] block">
+                          <span className="product-slider__price leading-tight mt-[1.25rem] xl:mt-[-1.5rem] block">
                             {(() => {
                               const tipo: CategoriaTipo | undefined = item.tipo
                                 ? item.tipo

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Planes from "@/components/Secciones/Planes";
+import Planes, { categorias } from "@/components/Secciones/Planes"; // 👈 Importa categorias
 import afiliadosData from "@/data/afiliados.json";
 
 interface CatalogoProps {
@@ -76,7 +76,7 @@ export default function Catalogo({ categoriaSeleccionada, onSeleccionarCategoria
               key={categoriaSeleccionada}
               idUnica="catalogo-filtrado"
               categoria={categoriaSeleccionada}
-              titulo="Nuestro catálogo"
+              titulo={categorias[categoriaSeleccionada as keyof typeof categorias] ?? "Nuestro catálogo"}
               mostrarForma={false}
               afiliado={afiliado}
               onSeleccionarCategoria={handleSeleccionarCategoria}
@@ -90,24 +90,27 @@ export default function Catalogo({ categoriaSeleccionada, onSeleccionarCategoria
             exit={{ opacity: 0 }}
             transition={transition}
           >
-            <Planes
-              key="catalogo"
-              idUnica="catalogo"
-              categoria="all"
-              titulo="Nuestro catálogo"
-              mostrarForma={false}
-              afiliado={afiliado}
-              onSeleccionarCategoria={handleSeleccionarCategoria}
-            />
+            {/* Mostrar productos con categoria='all' para incluir todo el catálogo de invitaciones */}
+          <Planes
+            key="catalogo"
+            idUnica="catalogo"
+            categoria="all"
+            titulo="Nuestro catálogo"
+            mostrarForma={false}
+            afiliado={afiliado}
+            onSeleccionarCategoria={handleSeleccionarCategoria}
+          />
 
-            <Planes
-              key="planes"
-              idUnica="planes"
-              titulo="Conoce nuestros planes para Invitaciones"
-              mostrarForma={true}
-              afiliado={afiliado}
-              onSeleccionarCategoria={handleSeleccionarCategoria}
-            />
+          <Planes
+            key="planes"
+            idUnica="planes"
+            categoria={undefined} // ⛳ Forzar lectura de planes.json
+            titulo="Conoce nuestros planes para Invitaciones"
+            mostrarForma={true}
+            afiliado={afiliado}
+            onSeleccionarCategoria={handleSeleccionarCategoria}
+          />
+
           </motion.div>
         )}
       </AnimatePresence>
