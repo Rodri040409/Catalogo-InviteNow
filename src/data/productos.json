@@ -156,6 +156,22 @@
       ]
     },
     {
+      "id": "confirmacion1",
+      "title": "INVITACIÓN PARA CONFIRMACIÓN",
+      "eventos": ["confirmacion", "evento"],
+      "categoria": ["all", "express"],
+      "url": "https://confirmacion1.vercel.app",
+      "adaptado": ["Celular", "Tablet", "PC"],
+      "imgMain": {
+        "ruta": "imagenes/Confirmacion/confirmacion1/confirmacion1",
+        "extension": "png"
+      },
+      "galeria": [
+        "imagenes/Confirmacion/confirmacion1/1.png",
+        "imagenes/Confirmacion/confirmacion1/2.png"
+      ]
+    },
+    {
       "id": "boda_demo7",
       "title": "INVITACIÓN PARA EVENTO",
       "eventos": ["boda", "xv", "evento"],

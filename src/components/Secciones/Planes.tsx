@@ -166,7 +166,7 @@ export default function Planes({
     { key: "xv", label: "XV Años" },
     { key: "cumpleaños", label: "Cumpleaños" },
     // { key: "bautizo", label: "Bautizo" },
-    // { key: "confirmacion", label: "Confirmación" },
+    { key: "confirmacion", label: "Confirmación" },
     { key: "evento", label: "Evento general" },
   ];
 
