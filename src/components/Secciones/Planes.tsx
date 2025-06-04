@@ -348,186 +348,188 @@ export default function Planes({
                   >
                     <AnimatePresence mode="wait">
                       <motion.div
-                        key={`${item.id}-${eventoFiltro}-${categoria}`}
+                        key={`motion-${activeIndex}-${dataFiltrada[activeIndex]?.id}`}
                         className="product-slider__card"
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -30 }}
                         transition={{ duration: 0.4 }}
                       >
-                        <div className="product-slider__card">
-                          <div className="product-slider__content">
-                            <h2 className="product-slider__title">{item.title}</h2>
+                        {dataFiltrada[activeIndex] && (
+                          <div className="product-slider__card">
+                            <div className="product-slider__content">
+                              <h2 className="product-slider__title">{item.title}</h2>
 
-                            {!mostrarPlanes && (
-                              <span className="product-slider__price leading-tight mb-[-2rem] block">
-                                {(() => {
-                                  const cats = Array.isArray(item.categoria)
-                                    ? item.categoria
-                                    : [item.categoria];
+                              {!mostrarPlanes && (
+                                <span className="product-slider__price leading-tight mb-[-2rem] block">
+                                  {(() => {
+                                    const cats = Array.isArray(item.categoria)
+                                      ? item.categoria
+                                      : [item.categoria];
 
-                                  const filtradas = cats.filter(
-                                    (cat): cat is string => typeof cat === "string" && cat !== "all"
-                                  );
+                                    const filtradas = cats.filter(
+                                      (cat): cat is string => typeof cat === "string" && cat !== "all"
+                                    );
 
-                                  const texto = filtradas.map((c) => c.toUpperCase()).join(" /");
+                                    const texto = filtradas.map((c) => c.toUpperCase()).join(" /");
 
-                                  return (
-                                    <>
-                                      <div>
-                                        CATEGORÍA
-                                      </div>
-                                      <div className="bg-gradient-to-r from-green-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent">
-                                        {texto}
-                                      </div>
-                                    </>
-                                  );
-                                })()}
-                              </span>
-                            )}
+                                    return (
+                                      <>
+                                        <div>
+                                          CATEGORÍA
+                                        </div>
+                                        <div className="bg-gradient-to-r from-green-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent">
+                                          {texto}
+                                        </div>
+                                      </>
+                                    );
+                                  })()}
+                                </span>
+                              )}
 
-                            {!categoria && (
-                              <span className="product-slider__price leading-tight mt-[1.25rem] xl:mt-[-1.5rem] block">
-                                {(() => {
-                                  const tipo: CategoriaTipo | undefined = item.tipo
-                                    ? item.tipo
-                                    : Array.isArray(item.categoria)
-                                      ? (["personalizada", ...item.categoria].find((cat) =>
-                                          cat in afiliadoData.precios
-                                        ) as CategoriaTipo | undefined)
-                                      : (item.categoria as CategoriaTipo);
+                              {!categoria && (
+                                <span className="product-slider__price leading-tight mt-[1.25rem] xl:mt-[-1.5rem] block">
+                                  {(() => {
+                                    const tipo: CategoriaTipo | undefined = item.tipo
+                                      ? item.tipo
+                                      : Array.isArray(item.categoria)
+                                        ? (["personalizada", ...item.categoria].find((cat) =>
+                                            cat in afiliadoData.precios
+                                          ) as CategoriaTipo | undefined)
+                                        : (item.categoria as CategoriaTipo);
 
 
-                                const raw = tipo && tipo in afiliadoData.precios
-                                  ? afiliadoData.precios[tipo]
-                                  : "";
-                                  const { principal, sup, texto } = formatearPrecio(raw);
+                                  const raw = tipo && tipo in afiliadoData.precios
+                                    ? afiliadoData.precios[tipo]
+                                    : "";
+                                    const { principal, sup, texto } = formatearPrecio(raw);
 
-                                  return (
-                                    <>
-                                      <span>
-                                        {principal}
-                                        {sup && (
-                                          <>
-                                            .<sup className="text-[0.75em] relative top-[0.4em] ml-[0.05em]">{sup}</sup>
-                                          </>
+                                    return (
+                                      <>
+                                        <span>
+                                          {principal}
+                                          {sup && (
+                                            <>
+                                              .<sup className="text-[0.75em] relative top-[0.4em] ml-[0.05em]">{sup}</sup>
+                                            </>
+                                          )}
+                                        </span>
+                                        {texto && (
+                                          <span className="ml-4 uppercase">{texto}</span>
                                         )}
-                                      </span>
-                                      {texto && (
-                                        <span className="ml-4 uppercase">{texto}</span>
-                                      )}
-                                    </>
-                                  );
-                                })()}
-                              </span>
-                            )}
+                                      </>
+                                    );
+                                  })()}
+                                </span>
+                              )}
 
-                            <div className="product-ctr">
-                              <div className="product-labels">
-                                <div className="product-labels__title__Gallery1">
-                                  {item.adaptado ? "Adaptada para:" : "INCLUYE:"}
-                                </div>
-                                {(item.adaptado ?? item.incluye)?.map((linea, i) => (
-                                  <div className="product-labels__product" key={i}>
-                                    - {linea}
+                              <div className="product-ctr">
+                                <div className="product-labels">
+                                  <div className="product-labels__title__Gallery1">
+                                    {item.adaptado ? "Adaptada para:" : "INCLUYE:"}
                                   </div>
-                                ))}
-                              </div>
+                                  {(item.adaptado ?? item.incluye)?.map((linea, i) => (
+                                    <div className="product-labels__product" key={i}>
+                                      - {linea}
+                                    </div>
+                                  ))}
+                                </div>
 
-                              <span className="hr-vertical"></span>
+                                <span className="hr-vertical"></span>
 
-                              {mostrarPlanes && item.dificultad !== undefined && (
-                                <div className="product-inf">
-                                  <div className="product-inf__percent flex flex-col items-center justify-center">
-                                    <div className="relative w-[100px] h-[100px]">
-                                      <svg className="w-full h-full" viewBox="0 0 100 100">
-                                        <circle
-                                          cx="50"
-                                          cy="50"
-                                          r="47"
-                                          stroke="#1e2e3e"
-                                          strokeWidth="6"
-                                          fill="none"
-                                        />
-                                        <circle
-                                          cx="50"
-                                          cy="50"
-                                          r="47"
-                                          stroke="#cb2240"
-                                          strokeWidth="6"
-                                          fill="none"
-                                          strokeDasharray={`${(item.dificultad / 100) * 295}, 295`}
-                                          transform="rotate(-90 50 50)"
-                                          strokeLinecap="round"
-                                        />
-                                      </svg>
-                                      <div className="absolute inset-0 flex items-center justify-center text-white text-[1.75rem] md:text-[2rem] font-extrabold leading-none">
-                                        {item.dificultad}%
+                                {mostrarPlanes && item.dificultad !== undefined && (
+                                  <div className="product-inf">
+                                    <div className="product-inf__percent flex flex-col items-center justify-center">
+                                      <div className="relative w-[100px] h-[100px]">
+                                        <svg className="w-full h-full" viewBox="0 0 100 100">
+                                          <circle
+                                            cx="50"
+                                            cy="50"
+                                            r="47"
+                                            stroke="#1e2e3e"
+                                            strokeWidth="6"
+                                            fill="none"
+                                          />
+                                          <circle
+                                            cx="50"
+                                            cy="50"
+                                            r="47"
+                                            stroke="#cb2240"
+                                            strokeWidth="6"
+                                            fill="none"
+                                            strokeDasharray={`${(item.dificultad / 100) * 295}, 295`}
+                                            transform="rotate(-90 50 50)"
+                                            strokeLinecap="round"
+                                          />
+                                        </svg>
+                                        <div className="absolute inset-0 flex items-center justify-center text-white text-[1.75rem] md:text-[2rem] font-extrabold leading-none">
+                                          {item.dificultad}%
+                                        </div>
                                       </div>
                                     </div>
+                                    <span className="product-inf__title">NIVEL DE DIFICULTAD</span>
                                   </div>
-                                  <span className="product-inf__title">NIVEL DE DIFICULTAD</span>
-                                </div>
-                              )}
-                            </div>
+                                )}
+                              </div>
 
-                            <div
-                              className={`product-slider__bottom ${
-                                item.galeria && item.galeria.length > 0
-                                  ? "product-slider__bottom--gallery1 grid"
-                                  : "flex justify-center"
-                              }`}
-                            >
+                              <div
+                                className={`product-slider__bottom ${
+                                  item.galeria && item.galeria.length > 0
+                                    ? "product-slider__bottom--gallery1 grid"
+                                    : "flex justify-center"
+                                }`}
+                              >
 
-                              {item.url && (
+                                {item.url && (
+                                    <button
+                                      onClick={() => window.open(item.url, "_blank", "noopener,noreferrer")}
+                                      className="product-slider__cart md:translate-x-[7rem] xl:translate-x-[0rem]"
+                                    >
+                                      Ir a la página
+                                    </button>
+                                  )}
+
+                                  {mostrarPlanes && item.tipo && (
+                                    item.tipo === "personalizada" ? (
+                                      <button
+                                        onClick={() =>
+                                          window.open(
+                                            `https://wa.me/${afiliadoData.telefono}?text=${encodeURIComponent(afiliadoData.mensaje)}`,
+                                            "_blank",
+                                            "noopener,noreferrer"
+                                          )
+                                        }
+                                        className="product-slider__cart md:translate-x-[7rem] xl:translate-x-[0rem]"
+                                      >
+                                        Contactar
+                                      </button>
+                                    ) : (
+                                      <button
+                                        className="product-slider__cart md:translate-x-[7rem] xl:translate-x-[0rem]"
+                                        onClick={() => {
+                                          if (item.tipo) {
+                                            onSeleccionarCategoria?.(item.tipo);
+                                          }
+                                        }}
+                                      >
+                                        Ver opciones
+                                      </button>
+                                    )
+                                  )}
+
+                                {item.galeria && item.galeria.length > 0 && (
                                   <button
-                                    onClick={() => window.open(item.url, "_blank", "noopener,noreferrer")}
                                     className="product-slider__cart md:translate-x-[7rem] xl:translate-x-[0rem]"
+                                    onClick={() => setGaleriaActiva(item.id)}
                                   >
-                                    Ir a la página
+                                    VER Fotos
                                   </button>
                                 )}
+                              </div>
 
-                                {mostrarPlanes && item.tipo && (
-                                  item.tipo === "personalizada" ? (
-                                    <button
-                                      onClick={() =>
-                                        window.open(
-                                          `https://wa.me/${afiliadoData.telefono}?text=${encodeURIComponent(afiliadoData.mensaje)}`,
-                                          "_blank",
-                                          "noopener,noreferrer"
-                                        )
-                                      }
-                                      className="product-slider__cart md:translate-x-[7rem] xl:translate-x-[0rem]"
-                                    >
-                                      Contactar
-                                    </button>
-                                  ) : (
-                                    <button
-                                      className="product-slider__cart md:translate-x-[7rem] xl:translate-x-[0rem]"
-                                      onClick={() => {
-                                        if (item.tipo) {
-                                          onSeleccionarCategoria?.(item.tipo);
-                                        }
-                                      }}
-                                    >
-                                      Ver opciones
-                                    </button>
-                                  )
-                                )}
-
-                              {item.galeria && item.galeria.length > 0 && (
-                                <button
-                                  className="product-slider__cart md:translate-x-[7rem] xl:translate-x-[0rem]"
-                                  onClick={() => setGaleriaActiva(item.id)}
-                                >
-                                  VER Fotos
-                                </button>
-                              )}
                             </div>
-
                           </div>
-                        </div>
+                        )}
                       </motion.div>
                     </AnimatePresence>
                   </SwiperSlide>
