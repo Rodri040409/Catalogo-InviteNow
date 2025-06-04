@@ -191,6 +191,7 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
               >
                 <a
                   href={item.href}
+                  onClick={(e) => e.preventDefault()} // ✅ Esto evita que se cambie el hash
                   onKeyDown={(e) => handleKeyDown(e, index)}
                   className={`outline-none gooey-label text-white font-bold`}
                 >
