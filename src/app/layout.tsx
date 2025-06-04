@@ -1,3 +1,5 @@
+'use client';
+
 import { Metadata } from 'next';
 import * as React from 'react';
 
@@ -5,6 +7,7 @@ import '@/styles/tailwind.css';
 import '@/styles/app.css';
 
 import { siteConfig } from '@/constant/config';
+import { useViewportHeight } from '@/hooks/useViewportHeight';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -42,21 +45,20 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  useViewportHeight(); // ✅ Se ejecuta solo una vez globalmente
+
   return (
     <html lang='es'>
       <head>
-        {/* Meta adicionales */}
         <meta charSet='UTF-8' />
         <meta httpEquiv='X-UA-Compatible' content='IE=edge' />
         <meta name='viewport' content='width=device-width, initial-scale=1.0' />
 
-        {/* Swiper styles (si usas swiper) */}
         <link
           rel='stylesheet'
           href='https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css'
         />
 
-        {/* Fuentes personalizadas */}
         <link rel='preconnect' href='https://fonts.googleapis.com' />
         <link rel='preconnect' href='https://fonts.gstatic.com' crossOrigin='anonymous' />
         <link
@@ -72,7 +74,6 @@ export default function RootLayout({
           rel='stylesheet'
         />
 
-        {/* Ícono personalizado */}
         <link rel='icon' href='/favicon/favicon-32x32.png' type='image/png' />
       </head>
       <body>{children}</body>

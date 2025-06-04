@@ -358,10 +358,12 @@ export default function Planes({
 
                               return (
                                 <>
-                                  CATEGORÍA<br />
-                                  <span className="bg-gradient-to-r from-green-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent">
+                                  <div>
+                                    CATEGORÍA
+                                  </div>
+                                  <div className="bg-gradient-to-r from-green-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent">
                                     {texto}
-                                  </span>
+                                  </div>
                                 </>
                               );
                             })()}

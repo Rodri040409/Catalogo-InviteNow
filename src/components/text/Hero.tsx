@@ -19,24 +19,6 @@ export default function Hero({
 }: HeroProps) {
   const glowRef = useRef<HTMLSpanElement>(null);
 
-  // Establecer --vh una sola vez
-  useLayoutEffect(() => {
-    const handleLoad = () => {
-      const vh = window.innerHeight * 0.01;
-      document.documentElement.style.setProperty('--vh', `${vh}px`);
-    };
-
-    if (document.readyState === 'complete') {
-      handleLoad();
-    } else {
-      window.addEventListener('load', handleLoad);
-    }
-
-    return () => {
-      window.removeEventListener('load', handleLoad);
-    };
-  }, []);
-
   // Efecto glow
   useEffect(() => {
     const glowSpan = glowRef.current;
