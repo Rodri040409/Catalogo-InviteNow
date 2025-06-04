@@ -8,11 +8,13 @@ export function useViewportHeight() {
       document.documentElement.style.setProperty('--vh', `${vh}px`);
     };
 
-    setVH(); // Establecer al inicio
-    window.addEventListener('resize', setVH); // Para rotación o resize
+    setVH();
+
+    // Solo en móviles: escucha cambios de orientación
+    window.addEventListener('orientationchange', setVH);
 
     return () => {
-      window.removeEventListener('resize', setVH);
+      window.removeEventListener('orientationchange', setVH);
     };
   }, []);
 }
